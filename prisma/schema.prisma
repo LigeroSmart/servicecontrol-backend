@@ -1,0 +1,457 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model atividade {
+  id                Int            @id @default(autoincrement())
+  usuario_id        Int
+  tipo_horario_id   Int
+  tipo_atividade_id Int
+  ticket            String?        @db.VarChar(20)
+  codigo            String?        @db.VarChar(20)
+  tipo_atividadeid  Int?
+  data_inicio       DateTime?      @db.Date
+  hora_inicio       DateTime?      @db.Time(6)
+  data_final        DateTime?      @db.Date
+  hora_final        DateTime?      @db.Time(6)
+  assunto           String?        @db.VarChar(100)
+  descricao         String?        @db.VarChar(1000)
+  tipo_atividade    tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario      tipo_horario   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario           usuario        @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cliente {
+  id              Int               @id @default(autoincrement())
+  codigo          Int?
+  cnpj            String?           @db.VarChar(20)
+  ie              String?           @db.VarChar(20)
+  abreviacao      String?           @db.VarChar(20)
+  nome_fantasia   String?           @db.VarChar(60)
+  razao_social    String?           @db.VarChar(60)
+  cep             String?           @db.VarChar(10)
+  endereco        String?           @db.VarChar(80)
+  bairro          String?           @db.VarChar(60)
+  cidade          String?           @db.VarChar(60)
+  uf              String?           @db.VarChar(2)
+  site            String?           @db.VarChar(200)
+  observacao      String?           @db.VarChar(2000)
+  situacao        String?           @db.VarChar(1)
+  contato         contato[]
+  contrato        contrato[]
+  modelo_contrato modelo_contrato[]
+  servico_cliente servico_cliente[]
+}
+
+model contato {
+  id                       Int                        @id @default(autoincrement())
+  cliente_id               Int
+  codigo                   String                     @db.VarChar(20)
+  nome                     String                     @db.VarChar(40)
+  telefone                 String?                    @db.VarChar(20)
+  ramal                    String?                    @db.VarChar(10)
+  celular                  String?                    @db.VarChar(20)
+  email                    String?                    @db.VarChar(100)
+  situacao                 String                     @db.VarChar(1)
+  cliente                  cliente                    @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_sla_contato modelo_regra_sla_contato[]
+  regra_sla_contato        regra_sla_contato[]
+}
+
+model contrato {
+  id                     Int                      @id @default(autoincrement())
+  cliente_id             Int
+  modelo_contrato_id     Int?
+  tipo_contrato_id       Int?
+  centro_custo_id        Int?
+  numero                 String?                  @db.VarChar(20)
+  descricao              String?                  @db.VarChar(2000)
+  inicio_vigencia        DateTime?                @db.Date
+  termino_vigencia       DateTime?                @db.Date
+  termino_contrato       DateTime?                @db.Date
+  valor_mensal           Decimal?                 @db.Decimal
+  situacao               String?                  @db.VarChar(1)
+  cliente                cliente                  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_contrato          tipo_contrato?           @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_cobranca         regra_cobranca[]
+  regra_cobranca_horario regra_cobranca_horario[]
+  regra_franquia         regra_franquia[]
+  regra_sla_contato      regra_sla_contato[]
+  regra_sla_servico      regra_sla_servico[]
+  regra_sla_sla          regra_sla_sla[]
+}
+
+model menu {
+  id          Int           @id @default(autoincrement())
+  descricao   String?       @db.VarChar(40)
+  rota        String?       @db.VarChar(100)
+  ativo       String?       @db.VarChar(1)
+  perfil_menu perfil_menu[]
+}
+
+model modelo_contrato {
+  id                            Int                             @id @default(autoincrement())
+  cliente_id                    Int
+  tipo_contrato_id              Int?
+  centro_custo_id               Int?
+  descricao                     String?                         @db.VarChar(2000)
+  valor_mensal                  Decimal?                        @db.Decimal
+  situacao                      String?                         @db.VarChar(1)
+  cliente                       cliente                         @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_contrato                 tipo_contrato?                  @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_cobranca         modelo_regra_cobranca[]
+  modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
+  modelo_regra_franquia         modelo_regra_franquia[]
+  modelo_regra_sla_contato      modelo_regra_sla_contato[]
+  modelo_regra_sla_servico      modelo_regra_sla_servico[]
+  modelo_regra_sla_sla          modelo_regra_sla_sla[]
+}
+
+model modelo_horario {
+  id                            Int                             @id @default(autoincrement())
+  descricao                     String?                         @db.VarChar(60)
+  situacao                      String?                         @db.VarChar(1)
+  modelo_regra_franquia_horario modelo_regra_franquia_horario[]
+  regra_franquia_horario        regra_franquia_horario[]
+}
+
+model modelo_regra_cobranca {
+  id                                   Int                                    @id @default(autoincrement())
+  modelo_contrato_id                   Int?
+  ordem                                Int?
+  codigo                               Int?
+  nome                                 String?                                @db.VarChar(60)
+  valor                                Decimal?                               @db.Decimal
+  bloqueado                            String?                                @db.VarChar(1)
+  modelo_contrato                      modelo_contrato?                       @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_cobranca_servico        modelo_regra_cobranca_servico[]
+  modelo_regra_cobranca_tipo_atividade modelo_regra_cobranca_tipo_atividade[]
+  modelo_regra_cobranca_tipo_chamado   modelo_regra_cobranca_tipo_chamado[]
+}
+
+model modelo_regra_cobranca_horario {
+  id                 Int             @id @default(autoincrement())
+  modelo_contrato_id Int
+  tipo_horario_id    Int?
+  modelo_contrato    modelo_contrato @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario       tipo_horario?   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_cobranca_servico {
+  id                       Int                   @id @default(autoincrement())
+  servico_cliente_id       Int
+  modelo_regra_cobranca_id Int
+  modelo_regra_cobranca    modelo_regra_cobranca @relation(fields: [modelo_regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente          servico_cliente       @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_cobranca_tipo_atividade {
+  id                       Int                   @id @default(autoincrement())
+  tipo_atividade_id        Int
+  modelo_regra_cobranca_id Int
+  modelo_regra_cobranca    modelo_regra_cobranca @relation(fields: [modelo_regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "modelo_regra_cobranca_tipo_ativid_modelo_regra_cobranca_id_fkey")
+  tipo_atividade           tipo_atividade        @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_cobranca_tipo_chamado {
+  id                       Int                   @id @default(autoincrement())
+  modelo_regra_cobranca_id Int
+  tipo_chamado_id          Int?
+  bloqueado                String?               @db.VarChar(1)
+  modelo_regra_cobranca    modelo_regra_cobranca @relation(fields: [modelo_regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "modelo_regra_cobranca_tipo_chamad_modelo_regra_cobranca_id_fkey")
+  tipo_chamado             tipo_chamado?         @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_franquia {
+  id                                   Int                                    @id @default(autoincrement())
+  modelo_contrato_id                   Int
+  qtd_horas                            Int?
+  valor_hora                           Decimal?                               @db.Decimal
+  qtd_meses                            Int?
+  frnquia_fixa                         String?                                @db.VarChar(1)
+  modelo_contrato                      modelo_contrato                        @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_franquia_horario        modelo_regra_franquia_horario[]
+  modelo_regra_franquia_servico        modelo_regra_franquia_servico[]
+  modelo_regra_franquia_tipo_atividade modelo_regra_franquia_tipo_atividade[]
+  modelo_regra_franquia_tipo_chamado   modelo_regra_franquia_tipo_chamado[]
+}
+
+model modelo_regra_franquia_horario {
+  id                       Int                   @id @default(autoincrement())
+  modelo_regra_franquia_id Int
+  modelo_horario_id        Int
+  modelo_horario           modelo_horario        @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_franquia    modelo_regra_franquia @relation(fields: [modelo_regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_franquia_servico {
+  id                       Int                    @default(autoincrement())
+  servico_cliente_id       Int
+  modelo_regra_franquia_id Int?
+  modelo_regra_franquia    modelo_regra_franquia? @relation(fields: [modelo_regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente          servico_cliente        @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([id, servico_cliente_id])
+}
+
+model modelo_regra_franquia_tipo_atividade {
+  id                       Int                   @id @default(autoincrement())
+  tipo_atividade_id        Int
+  modelo_regra_franquia_id Int
+  modelo_regra_franquia    modelo_regra_franquia @relation(fields: [modelo_regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "modelo_regra_franquia_tipo_ativid_modelo_regra_franquia_id_fkey")
+  tipo_atividade           tipo_atividade        @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_franquia_tipo_chamado {
+  id                       Int                   @id @default(autoincrement())
+  modelo_regra_franquia_id Int
+  tipo_chamado_id          Int
+  bloqueado                String?               @db.VarChar(1)
+  modelo_regra_franquia    modelo_regra_franquia @relation(fields: [modelo_regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "modelo_regra_franquia_tipo_chamad_modelo_regra_franquia_id_fkey")
+  tipo_chamado             tipo_chamado          @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_sla_contato {
+  id                 Int             @id @default(autoincrement())
+  modelo_contrato_id Int
+  contato_id         Int
+  contato            contato         @relation(fields: [contato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_contrato    modelo_contrato @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_sla_servico {
+  id                 Int             @id @default(autoincrement())
+  modelo_contrato_id Int
+  servico_cliente_id Int
+  modelo_contrato    modelo_contrato @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model modelo_regra_sla_sla {
+  id                 Int             @id @default(autoincrement())
+  modelo_contrato_id Int
+  sla_id             Int
+  modelo_contrato    modelo_contrato @relation(fields: [modelo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sla                sla             @relation(fields: [sla_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model perfil {
+  id          Int           @id @default(autoincrement())
+  descricao   String?       @db.VarChar(40)
+  situacao    String?       @db.VarChar(1)
+  perfil_menu perfil_menu[]
+  usuario     usuario[]
+}
+
+model perfil_menu {
+  id        Int     @id @default(autoincrement())
+  perfil_id Int?
+  menu_id   Int?
+  menu      menu?   @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  perfil    perfil? @relation(fields: [perfil_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_cobranca {
+  id                            Int                             @id @default(autoincrement())
+  contrato_id                   Int?
+  ordem                         Int?
+  codigo                        Int?
+  nome                          String?                         @db.VarChar(60)
+  valor                         Decimal?                        @db.Decimal
+  bloqueado                     String?                         @db.VarChar(1)
+  contrato                      contrato?                       @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_cobranca_servico        regra_cobranca_servico[]
+  regra_cobranca_tipo_atividade regra_cobranca_tipo_atividade[]
+  regra_cobranca_tipo_chamado   regra_cobranca_tipo_chamado[]
+}
+
+model regra_cobranca_horario {
+  id              Int           @id @default(autoincrement())
+  contrato_id     Int
+  tipo_horario_id Int?
+  contrato        contrato      @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario    tipo_horario? @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_cobranca_servico {
+  id                 Int             @id @default(autoincrement())
+  servico_cliente_id Int
+  regra_cobranca_id  Int
+  regra_cobranca     regra_cobranca  @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_cobranca_tipo_atividade {
+  id                Int            @id @default(autoincrement())
+  tipo_atividade_id Int
+  regra_cobranca_id Int
+  regra_cobranca    regra_cobranca @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_atividade    tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_cobranca_tipo_chamado {
+  id                Int            @id @default(autoincrement())
+  regra_cobranca_id Int
+  tipo_chamado_id   Int?
+  bloqueado         String?        @db.VarChar(1)
+  regra_cobranca    regra_cobranca @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_chamado      tipo_chamado?  @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_franquia {
+  id                            Int                             @id @default(autoincrement())
+  contrato_id                   Int
+  qtd_horas                     Int?
+  valor_hora                    Decimal?                        @db.Decimal
+  qtd_meses                     Int?
+  frnquia_fixa                  String?                         @db.VarChar(1)
+  contrato                      contrato                        @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_franquia_horario        regra_franquia_horario[]
+  regra_franquia_servico        regra_franquia_servico[]
+  regra_franquia_tipo_atividade regra_franquia_tipo_atividade[]
+  regra_franquia_tipo_chamado   regra_franquia_tipo_chamado[]
+}
+
+model regra_franquia_horario {
+  id                Int            @id @default(autoincrement())
+  regra_franquia_id Int
+  modelo_horario_id Int
+  modelo_horario    modelo_horario @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_franquia    regra_franquia @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_franquia_servico {
+  id                 Int             @default(autoincrement())
+  servico_cliente_id Int
+  regra_franquia_id  Int?
+  regra_franquia     regra_franquia? @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([id, servico_cliente_id])
+}
+
+model regra_franquia_tipo_atividade {
+  id                Int            @id @default(autoincrement())
+  tipo_atividade_id Int
+  regra_franquia_id Int
+  regra_franquia    regra_franquia @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_atividade    tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_franquia_tipo_chamado {
+  id                Int            @id @default(autoincrement())
+  regra_franquia_id Int
+  tipo_chamado_id   Int
+  bloqueado         String?        @db.VarChar(1)
+  regra_franquia    regra_franquia @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_chamado      tipo_chamado   @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_sla_contato {
+  id          Int      @id @default(autoincrement())
+  contrato_id Int
+  contato_id  Int
+  contato     contato  @relation(fields: [contato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  contrato    contrato @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_sla_servico {
+  id                 Int             @id @default(autoincrement())
+  contrato_id        Int
+  servico_cliente_id Int
+  contrato           contrato        @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regra_sla_sla {
+  id          Int      @id @default(autoincrement())
+  contrato_id Int
+  sla_id      Int
+  contrato    contrato @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sla         sla      @relation(fields: [sla_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model servico {
+  id              Int               @id @default(autoincrement())
+  descricao       String?           @db.VarChar(60)
+  situacao        String?           @db.VarChar(1)
+  servico_cliente servico_cliente[]
+}
+
+model servico_cliente {
+  id                            Int                             @id @default(autoincrement())
+  cliente_id                    Int?
+  servico_id                    Int?
+  modelo_regra_cobranca_servico modelo_regra_cobranca_servico[]
+  modelo_regra_franquia_servico modelo_regra_franquia_servico[]
+  modelo_regra_sla_servico      modelo_regra_sla_servico[]
+  regra_cobranca_servico        regra_cobranca_servico[]
+  regra_franquia_servico        regra_franquia_servico[]
+  regra_sla_servico             regra_sla_servico[]
+  cliente                       cliente?                        @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  servico                       servico?                        @relation(fields: [servico_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model sla {
+  id                   Int                    @id @default(autoincrement())
+  descricao            String?                @db.VarChar(60)
+  situacao             String?                @db.VarChar(1)
+  modelo_regra_sla_sla modelo_regra_sla_sla[]
+  regra_sla_sla        regra_sla_sla[]
+}
+
+model tipo_atividade {
+  id                                   Int                                    @id @default(autoincrement())
+  descricao                            String                                 @db.VarChar(40)
+  situacao                             String                                 @db.VarChar(1)
+  atividade                            atividade[]
+  modelo_regra_cobranca_tipo_atividade modelo_regra_cobranca_tipo_atividade[]
+  modelo_regra_franquia_tipo_atividade modelo_regra_franquia_tipo_atividade[]
+  regra_cobranca_tipo_atividade        regra_cobranca_tipo_atividade[]
+  regra_franquia_tipo_atividade        regra_franquia_tipo_atividade[]
+}
+
+model tipo_chamado {
+  id                                 Int                                  @id @default(autoincrement())
+  descricao                          String?                              @db.VarChar(40)
+  situacao                           String?                              @db.VarChar(1)
+  modelo_regra_cobranca_tipo_chamado modelo_regra_cobranca_tipo_chamado[]
+  modelo_regra_franquia_tipo_chamado modelo_regra_franquia_tipo_chamado[]
+  regra_cobranca_tipo_chamado        regra_cobranca_tipo_chamado[]
+  regra_franquia_tipo_chamado        regra_franquia_tipo_chamado[]
+}
+
+model tipo_contrato {
+  id              Int               @id @default(autoincrement())
+  descricao       String?           @db.VarChar(80)
+  cobranca_unica  String?           @db.VarChar(1)
+  situacao        String?           @db.VarChar(1)
+  contrato        contrato[]
+  modelo_contrato modelo_contrato[]
+}
+
+model tipo_horario {
+  id                            Int                             @id @default(autoincrement())
+  descricao                     String                          @db.VarChar(20)
+  situacao                      String                          @db.VarChar(1)
+  atividade                     atividade[]
+  modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
+  regra_cobranca_horario        regra_cobranca_horario[]
+}
+
+model usuario {
+  id            Int         @id @default(autoincrement())
+  perfil_id     Int
+  nome          String?     @db.VarChar(40)
+  usuario       String?     @unique @db.VarChar(10)
+  senha         String?     @db.VarChar(20)
+  administrador String?     @db.VarChar(1)
+  situacao      String?     @db.VarChar(1)
+  atividade     atividade[]
+  perfil        perfil      @relation(fields: [perfil_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
