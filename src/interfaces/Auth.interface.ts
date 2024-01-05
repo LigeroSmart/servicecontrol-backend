@@ -1,7 +1,7 @@
 import { Usuario } from '../entities/Usuario';
 
 export interface AuthUseCaseRequest {
-  usuario: string;
+  email: string;
   senha: string;
 }
 

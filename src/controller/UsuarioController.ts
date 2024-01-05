@@ -6,6 +6,7 @@ import { UsuarioAlreadyExists } from '../errors/UsuarioAlreadyExists';
 // import { sendEmail } from '../middlewares/sendEmail';
 
 export class UsuarioController {
+  
   constructor(private usuarioUseCase: UsuarioUseCase) {
     this.usuarioUseCase = usuarioUseCase;
   }
@@ -13,10 +14,8 @@ export class UsuarioController {
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
       const users = await this.usuarioUseCase.getAll();
-
-      console.log( users );
-
       res.status(200).json(users);
+
     } catch (error: any) {
       if (error instanceof UsuarioNotFound) {
         res.status(404).json({ error: error.message });
@@ -46,18 +45,18 @@ export class UsuarioController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { nome, email, senha, usuario } = req.body;
+      const { perfil_id, nome, email, senha, administrador, situacao } = req.body;
 
       const user = await this.usuarioUseCase.createUsuario(email, {
-        perfilId,
+        perfil_id,
         nome,
-        usuario,
+        email,
         senha,
         administrador,
         situacao,
       });
 
-      res.status(201).json({ message: 'Usuário criado com sucesso.' });
+      res.status(201).json({ user, message: 'Usuário criado com sucesso.' });
     } catch (error: any) {
       if (error instanceof UsuarioAlreadyExists) {
         res.status(404).json({ error: error.message });
@@ -72,15 +71,12 @@ export class UsuarioController {
     try {
       const { id } = req.params;
 
-      const { nome, email, usuario, ativo, administrador } = req.body;
+      const { perfil_id, nome, situacao, administrador } = req.body;
 
       const user = await this.usuarioUseCase.update(Number(id), {
-        perfilId,
+        perfil_id,
         nome,        
-        usuario,
-        senha,
         administrador,
-        situacao,
       });
 
       res
@@ -102,7 +98,7 @@ export class UsuarioController {
 
       const user = await this.usuarioUseCase.delete(Number(id));
 
-      res.status(200).json({ user, message: 'Usuário deletado com sucesso.' });
+      res.status(200).json({ message: 'Usuário apagado.' });
 
     } catch (error: any) {
       if (error instanceof UsuarioNotFound) {
@@ -143,11 +139,11 @@ export class UsuarioController {
 
       const { senha } = req.body;
 
-      const user = await this.userUseCase.updatePassword(Number(id), senha);
+      const user = await this.usuarioUseCase.updatePassword(Number(id), senha);
 
       res.status(200).json({ user, message: 'Senha atualizada com sucesso.' });
     } catch (error: any) {
-      if (error instanceof UserNotFound) {
+      if (error instanceof UsuarioNotFound) {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);

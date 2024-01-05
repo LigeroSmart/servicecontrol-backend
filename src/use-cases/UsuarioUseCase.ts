@@ -1,9 +1,18 @@
-import { hash } from 'bcryptjs';
+import { genSalt, hash } from 'bcryptjs';
 import { UsuarioAlreadyExists } from '../errors/UsuarioAlreadyExists';
 import { UsuarioNotFound } from '../errors/UsuarioNotFound';
 import { CreateUsuarioDTO, IUsuario, UpdateUsuarioDTO } from '../interfaces/Usuario.Interface';
 // import { sendEmail } from '../middlewares/sendEmail';
+import { criptografar, descriptografar } from '../middleware/cripto';
 import { DbUsuarioRepository } from '../repository/DbUsuarioRepository';
+import { Console } from 'console';
+
+const SALT_RANDOMS = 8;
+
+const hasPassword = async (senha: string) => {
+  const saltGenerated = await genSalt(SALT_RANDOMS);
+  return await hash(senha, saltGenerated);
+}
 
 export class UsuarioUseCase {
   constructor(private usuarioRepository: DbUsuarioRepository) {
@@ -11,27 +20,26 @@ export class UsuarioUseCase {
   }
 
   public async createUsuario(
-    email: string,
+    usuario: string,
     data: CreateUsuarioDTO
   ): Promise<IUsuario | null> {
-    // const existsUserByEmail = await this.usuarioRepository.getByEmail(email);
-
     const existsUserByUser = await this.usuarioRepository.getByUsuario(
-      data.usuario
+      usuario
     );
 
-    //if (existsUserByEmail || existsUserByUser) {
     if (existsUserByUser) {
       throw new UsuarioAlreadyExists();
     }
 
-    const password_hash = await hash(data.senha, 6);
+    const passwordHash = await hasPassword(data.senha);
+
+    data.situacao = 'I';
 
     const user = await this.usuarioRepository.createUsuario({
-      perfilId: data.perfilId,
+      perfil_id: data.perfil_id,
       nome: data.nome,
-      usuario: data.usuario,
-      senha: password_hash,
+      email: data.email,
+      senha: passwordHash,
       administrador: data.administrador,
       situacao: data.situacao,
     });
@@ -72,12 +80,9 @@ export class UsuarioUseCase {
     }
 
     const user = await this.usuarioRepository.update(id, {
-      perfilId: data.perfilId,
+      perfil_id: data.perfil_id,
       nome: data.nome,
-      usuario: data.usuario,
-      senha: data.senha,
       administrador: data.administrador,
-      situacao: data.situacao,
     });
 
     return user;
@@ -117,11 +122,11 @@ export class UsuarioUseCase {
       throw new UsuarioNotFound();
     }
 
-    const password_hash = await hash(senha, 6);
+    const passwordHash = await hasPassword(senha);
 
     const user = await this.usuarioRepository.updatePassword(
       id,
-      (senha = password_hash)
+      (senha = passwordHash)
     );
 
     return user;

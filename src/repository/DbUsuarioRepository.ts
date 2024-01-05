@@ -4,9 +4,18 @@ import { Usuario } from '../entities/Usuario';
 import { UsuarioRepository } from './UsuarioRepository';
 
 export class DbUsuarioRepository implements UsuarioRepository {
+  
   public async createUsuario(data: CreateUsuarioDTO): Promise<IUsuario> {
     const user = await prismaClient.usuario.create({
       data: data,
+      select: {
+        id: true,
+        perfil_id: true,
+        nome: true,
+        email: true,
+        administrador: true,
+        situacao: true
+      },
     });
 
     return user;
@@ -16,9 +25,9 @@ export class DbUsuarioRepository implements UsuarioRepository {
     return await prismaClient.usuario.findMany({
       select: {
         id: true,
-        perfilId: true,
+        perfil_id: true,
         nome: true,
-        usuario: true,
+        email: true,
         administrador: true,
         situacao: true
       },
@@ -32,35 +41,19 @@ export class DbUsuarioRepository implements UsuarioRepository {
       },
       select: {
         id: true,
-        perfilId: true,
+        perfil_id: true,
         nome: true,
-        usuario: true,
+        email: true,
         administrador: true,
         situacao: true
       },
     });
   }
 
-  // public async getByEmail(email: string): Promise<IUser | null> {
-  //   return await prismaClient.usuario.findUnique({
-  //     where: {
-  //       email,
-  //     },
-  //     select: {
-  //       id: true,
-  //       nome: true,
-  //       email: true,
-  //       usuario: true,
-  //       ativo: true,
-  //       administrador: true,
-  //     },
-  //   });
-  // }
-
-  public async getByUsuario(usuario: string): Promise<Usuario | null> {
+  public async getByUsuario(email: string): Promise<Usuario | null> {
     return await prismaClient.usuario.findUnique({
       where: {
-        usuario,
+        email,
       },
     });
   }
@@ -69,6 +62,14 @@ export class DbUsuarioRepository implements UsuarioRepository {
     return await prismaClient.usuario.update({
       where: { id },
       data: data,
+      select: { 
+        id: true,
+        perfil_id: true,
+        nome: true,
+        email: true,
+        administrador: true,
+        situacao: true
+      }
     });
   }
 
@@ -98,6 +99,14 @@ export class DbUsuarioRepository implements UsuarioRepository {
       data: {
         senha: senha,
       },
+      select: {
+        id: true,
+        perfil_id: true,
+        nome: true,
+        email: true,
+        administrador: true,
+        situacao: true,
+      }
     });
   }
 }

@@ -5,13 +5,13 @@ import { UsuarioNotActive } from '../errors/UsuarioNotActive';
 
 export class AuthController {
   public authenticate = async (req: Request, res: Response) => {
-    const { usuario, senha } = req.body;
+    const { email, senha } = req.body;
 
     try {
       const authenticateUseCase = MakeAuthUseCase();
 
       const authenticateUser = await authenticateUseCase.execute({
-        usuario,
+        email,
         senha,
       });
   
@@ -19,7 +19,7 @@ export class AuthController {
         usuario: {
           id: authenticateUser.user.id,
           nome: authenticateUser.user.nome,
-          usuario: authenticateUser.user.usuario,
+          email: authenticateUser.user.email,
           administrador: authenticateUser.user.administrador,
           situacao: authenticateUser.user.situacao,
         },

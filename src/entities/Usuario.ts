@@ -2,7 +2,7 @@ export class Usuario {
     id: number;
     perfilId: number;
     nome: string;
-    usuario: string;
+    email: string;
     senha: string;
     administrador: string;
     situacao: string;
@@ -11,7 +11,7 @@ export class Usuario {
       id: number,
       perfilId: number,
       nome: string,
-      usuario: string,
+      email: string,
       senha: string,
       administrador: string,
       situacao: string
@@ -19,7 +19,7 @@ export class Usuario {
       this.id = id;
       this.perfilId = perfilId
       this.nome = nome;
-      this.usuario = usuario;
+      this.email = email;
       this.senha = senha;
       this.administrador = administrador;
       this.situacao = situacao;

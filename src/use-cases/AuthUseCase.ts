@@ -11,28 +11,25 @@ export class AuthUseCase {
   constructor(private usuarioRepository: DbUsuarioRepository) {}
 
   async execute({
-    usuario,
+    email,
     senha,
   }: AuthUseCaseRequest): Promise<AuthUseCaseResponse> {
        
-    const user = await this.usuarioRepository.getByUsuario(usuario);
+    const user = await this.usuarioRepository.getByUsuario(email);
 
     if (!user) {
       throw new UsuarioInvalidCredentials();
     }
 
-
-
-
     //dotenv.config();
 
-    // const doesPasswordMatches = await compare(senha, user.senha);
+    const doesPasswordMatches = await compare(senha, user.senha);
 
     const token = JWT.sign(
       {
         id: user.id,
         nome: user.nome,
-        usuario: user.usuario,
+        email: user.email,
       },
       process.env.JWT_SECRET || '',
       {
@@ -40,8 +37,8 @@ export class AuthUseCase {
       }
     );
 
-    //if (!doesPasswordMatches) {
-    if (senha != user.senha) {
+    if (!doesPasswordMatches) {
+    //if (senha != user.senha) {
       throw new UsuarioInvalidCredentials();
     }
 

@@ -7,10 +7,12 @@ export const createUsuarioValidator = [
     .isString()
     .isLength({ min: 3 })
     .withMessage('O nome precisa conter no mínimo 3 caracteres'),
-  body('usuario')
+  body('email')
     .isString()
-    .isLength({ min: 3 })
-    .withMessage('O usuario precisa conter um mínimo 3 caracteres'),
+    .isLength({ min: 10 })
+    .withMessage('O e-mail precisa conter um mínimo 10 caracteres')
+    .isLength({ max: 100 })
+    .withMessage('O e-mail precisa conter um maximo de 100 caracteres'),
   body('senha')
     .isLength({ min: 6 })
     .withMessage('A senha precisa conter no mínimo 6 caracteres')
