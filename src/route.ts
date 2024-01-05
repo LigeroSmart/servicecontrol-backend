@@ -10,8 +10,8 @@ import { usuarioRouter } from './routes/usuario.routes';
 // import { fileRouter } from './routes/file.routes';
 
 const router = Router();
-router.use('/api', loginRouter);
-router.use('/api/usuario', usuarioRouter);
+router.use('/api/v1', loginRouter);
+router.use('/api/v1/usuario', usuarioRouter);
 
 // router.use('/api/chatbot', chatRouter);
 // router.use('/api/aparencia', appearanceRouter);
