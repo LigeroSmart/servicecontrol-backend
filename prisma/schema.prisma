@@ -91,6 +91,9 @@ model menu {
   descricao   String?       @db.VarChar(40)
   rota        String?       @db.VarChar(100)
   ativo       String?       @db.VarChar(1)
+  grupo_id    Int?
+  menu        menu?         @relation("menuTomenu", fields: [grupo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_menu")
+  other_menu  menu[]        @relation("menuTomenu")
   perfil_menu perfil_menu[]
 }
 
@@ -242,7 +245,7 @@ model modelo_regra_sla_sla {
 
 model perfil {
   id          Int           @id @default(autoincrement())
-  descricao   String?       @db.VarChar(40)
+  descricao   String?       @unique(map: "uk_perfil_descricao") @db.VarChar(40)
   situacao    String?       @db.VarChar(1)
   perfil_menu perfil_menu[]
   usuario     usuario[]
