@@ -20,11 +20,24 @@ const perfilController = new PerfilController(perfilUseCase);
 
 const authenticateController = new AuthController();
 
-perfilRouter.post('/', createPerfilValidator, validate, perfilController.insert);
+perfilRouter.post(
+  '/', 
+  createPerfilValidator, 
+  validate, 
+  perfilController.insert
+);
 
-perfilRouter.get('/', authMiddleware, perfilController.index);
+perfilRouter.get(
+  '/', 
+  authMiddleware, 
+  perfilController.index
+);
 
-perfilRouter.get('/:id', authMiddleware, perfilController.show);
+perfilRouter.get(
+  '/:id', 
+  authMiddleware, 
+  perfilController.show
+);
 
 perfilRouter.put(
   '/:id',
@@ -34,4 +47,8 @@ perfilRouter.put(
   perfilController.update
 );
 
-perfilRouter.delete('/:id', authMiddleware, perfilController.delete);
+perfilRouter.delete(
+  '/:id', 
+  authMiddleware, 
+  perfilController.delete
+);

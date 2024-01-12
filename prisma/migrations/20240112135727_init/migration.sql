@@ -77,6 +77,7 @@ CREATE TABLE "menu" (
     "descricao" VARCHAR(40),
     "rota" VARCHAR(100),
     "ativo" VARCHAR(1),
+    "grupo_id" INTEGER,
 
     CONSTRAINT "menu_pkey" PRIMARY KEY ("id")
 );
@@ -443,12 +444,15 @@ CREATE TABLE "usuario" (
     "perfil_id" INTEGER NOT NULL,
     "nome" VARCHAR(40),
     "email" VARCHAR(100),
-    "senha" VARCHAR(20),
+    "senha" VARCHAR(200),
     "administrador" VARCHAR(1),
     "situacao" VARCHAR(1),
 
     CONSTRAINT "usuario_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "uk_perfil_descricao" ON "perfil"("descricao");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "usuario_email_uk" ON "usuario"("email");
@@ -470,6 +474,9 @@ ALTER TABLE "contrato" ADD CONSTRAINT "contrato_cliente_id_fkey" FOREIGN KEY ("c
 
 -- AddForeignKey
 ALTER TABLE "contrato" ADD CONSTRAINT "contrato_tipo_contrato_id_fkey" FOREIGN KEY ("tipo_contrato_id") REFERENCES "tipo_contrato"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "menu" ADD CONSTRAINT "fk_menu_menu" FOREIGN KEY ("grupo_id") REFERENCES "menu"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "modelo_contrato" ADD CONSTRAINT "modelo_contrato_cliente_id_fkey" FOREIGN KEY ("cliente_id") REFERENCES "cliente"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
