@@ -34,10 +34,18 @@ perfilRouter.get(
 );
 
 perfilRouter.get(
+  '/menu', 
+  authMiddleware, 
+  perfilController.showPerfil
+);
+
+perfilRouter.get(
   '/:id', 
   authMiddleware, 
   perfilController.show
 );
+
+
 
 perfilRouter.put(
   '/:id',
@@ -46,6 +54,7 @@ perfilRouter.put(
   validate,
   perfilController.update
 );
+
 
 perfilRouter.delete(
   '/:id', 

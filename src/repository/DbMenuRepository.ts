@@ -24,13 +24,19 @@ export class DbMenuRepository implements MenuRepository {
     return await prismaClient.menu.findMany({
       select: {
         id: true,
+        ordem: true,
         grupo_id: true,
         descricao: true,
         rota: true,
         ativo: true
       },
+      where: {
+        ativo: {
+          equals: 'S'
+        }
+      },
       orderBy: {
-        id: 'asc',
+        ordem: 'asc',
       },
     });
   }

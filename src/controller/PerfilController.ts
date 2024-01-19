@@ -12,8 +12,7 @@ export class PerfilController {
 
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
-      const perfil = await this.perfilUseCase.getAll();
-      res.status(200).json(perfil);
+      const perfil = await this.perfilUseCase.getAll();      
 
     } catch (error: any) {
       if (error instanceof PerfilNotFound) {
@@ -30,6 +29,24 @@ export class PerfilController {
       const { id } = req.params;
 
       const perfil = await this.perfilUseCase.getById(Number(id));
+
+      res.status(200).json(perfil);
+    } catch (error: any) {
+      if (error instanceof PerfilNotFound) {
+        res.status(404).json({ error: error.message });
+      } else {
+        console.log(error.message);
+        res.status(500).json({ error: 'Erro ao listar perfil' });
+      }
+    }
+  };
+
+
+  public showPerfil = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { perfil_id } = req.query;
+
+      const perfil = await this.perfilUseCase.getByPerfilId(Number(perfil_id));
 
       res.status(200).json(perfil);
     } catch (error: any) {

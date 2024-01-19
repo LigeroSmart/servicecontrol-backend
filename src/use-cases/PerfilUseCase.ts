@@ -60,8 +60,19 @@ export class PerfilUseCase {
     return perfil;
   }
 
+
   public async getById(id: number): Promise<IPerfil | null> {
     const perfil = await this.perfilRepository.getById(id);
+
+    if (!perfil) {
+      throw new PerfilNotFound();
+    }
+
+    return perfil;
+  }
+
+  public async getByPerfilId(perfil_id: number): Promise<IPerfil | null> {
+    const perfil = await this.perfilRepository.getPerfilId(perfil_id);
 
     if (!perfil) {
       throw new PerfilNotFound();
@@ -75,6 +86,9 @@ export class PerfilUseCase {
     data: UpdatePerfilDTO,
     itens: []
     ): Promise<IPerfil | null> {
+    
+    console.log('data', data, 'itens', itens);
+
     const existsPerfil = await this.getById(id);
 
     if (!existsPerfil) {
@@ -88,6 +102,8 @@ export class PerfilUseCase {
 
     itens.forEach(async menuItem => {
       let menuId : number = menuItem.menu_id;
+      
+      console.log('menuItem', menuItem);
 
       if (menuItem.deleted) {
         const perfilMenu = await this.perfilMenuRepository.delete(menuItem.id);

@@ -45,6 +45,8 @@ export class DbPerfilMenuRepository implements PerfilMenuRepository {
   }
 
   public async update(id: number, data: UpdatePerfilMenuDTO): Promise<IPerfilMenu | null> {
+    // console.log('UpdatePerfilMenu',data.menu_id, data.perfil_id);
+
     return await prismaClient.perfil_menu.update({
       where: { id },
       data: data,

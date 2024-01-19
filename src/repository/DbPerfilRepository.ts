@@ -28,6 +28,43 @@ export class DbPerfilRepository implements PerfilRepository {
     });
   }
 
+  // public async getPerfilId(perfil_id: number): Promise<IPerfil[] | null> {
+  //   return await prismaClient.perfil.findMany({
+  //     where:{
+  //       id: {
+  //         equals:perfil_id
+  //       }
+  //     },
+  //     select: {
+  //       id: true,
+  //       descricao: true,
+  //       situacao: true,
+  //       perfil_menu: {
+  //         select: {
+  //           id: true,
+  //           perfil_id: true,
+  //           menu_id: true,
+  //           menu: {
+  //             select: {
+  //               id: true,
+  //               ordem: true,
+  //               grupo_id: true,
+  //               descricao:true,
+  //               rota: true,
+  //               ativo: true,
+  //             },
+  //             where: {
+  //               ativo: {
+  //                 equals: 'S'
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     },
+  //   });
+  // }
+
   public async getById(id: number): Promise<IPerfil | null> {
     return await prismaClient.perfil.findUnique({
       where: {
@@ -46,6 +83,10 @@ export class DbPerfilRepository implements PerfilRepository {
         }
       },
     });
+  }
+
+  public async getPerfilId(id: number): Promise<IPerfil | null> {
+    return await prismaClient.$queryRaw`select p.id, P.descricao, p.situacao, m.descricao menu, m.rota, m.ordem from perfil p left outer join perfil_menu pm on p.id = pm.perfil_id left outer join menu m on pm.menu_id = m.id where p.id = ${id} order by m.ordem`;
   }
 
   public async getByDescricao(descricao: string): Promise<Perfil | null> {
