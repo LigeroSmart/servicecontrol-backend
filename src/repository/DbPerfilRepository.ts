@@ -86,7 +86,7 @@ export class DbPerfilRepository implements PerfilRepository {
   }
 
   public async getPerfilId(id: number): Promise<IPerfil | null> {
-    return await prismaClient.$queryRaw`select p.id, P.descricao, p.situacao, m.descricao menu, m.rota, m.ordem from perfil p left outer join perfil_menu pm on p.id = pm.perfil_id left outer join menu m on pm.menu_id = m.id where p.id = ${id} order by m.ordem`;
+    return await prismaClient.$queryRaw`select p.id, P.descricao, p.situacao, m.descricao menu, m.rota, m.ordem, m.grupo_id, m.id menu_id from perfil p left outer join perfil_menu pm on p.id = pm.perfil_id left outer join menu m on pm.menu_id = m.id where p.id = ${id} order by m.ordem`;
   }
 
   public async getByDescricao(descricao: string): Promise<Perfil | null> {
