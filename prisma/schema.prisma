@@ -28,7 +28,7 @@ model atividade {
 
 model cliente {
   id                Int               @id @default(autoincrement())
-  modelo_horario_id Int?
+  modelo_horario_id Int
   codigo            Int               @unique(map: "cliente_codigo_uk")
   cnpj              String?           @db.VarChar(20)
   ie                String?           @db.VarChar(20)
@@ -43,6 +43,7 @@ model cliente {
   site              String?           @db.VarChar(200)
   observacao        String?           @db.VarChar(2000)
   situacao          String?           @db.VarChar(1)
+  modelo_horario    modelo_horario    @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   contato           contato[]
   contrato          contrato[]
   modelo_contrato   modelo_contrato[]
@@ -123,6 +124,7 @@ model modelo_horario {
   situacao                      String?                         @db.VarChar(1)
   modelo_regra_franquia_horario modelo_regra_franquia_horario[]
   regra_franquia_horario        regra_franquia_horario[]
+  cliente                       cliente[]
 }
 
 model modelo_regra_cobranca {
