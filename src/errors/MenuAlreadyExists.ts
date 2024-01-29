@@ -1,6 +1,6 @@
 export class MenuAlreadyExists extends Error {
     constructor() {
-      super('Menu já existe.');
+      super('Menu já cadastrado.');
       this.name = 'MenuAlreadyExists';
     }
   }

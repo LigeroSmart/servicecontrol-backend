@@ -1,6 +1,6 @@
 export class PerfilAlreadyExists extends Error {
     constructor() {
-      super('Perfil já existe.');
+      super('Perfil já cadastrado.');
       this.name = 'PerfilAlreadyExists';
     }
   }

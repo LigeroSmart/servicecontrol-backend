@@ -27,25 +27,26 @@ model atividade {
 }
 
 model cliente {
-  id              Int               @id @default(autoincrement())
-  codigo          Int?
-  cnpj            String?           @db.VarChar(20)
-  ie              String?           @db.VarChar(20)
-  abreviacao      String?           @db.VarChar(20)
-  nome_fantasia   String?           @db.VarChar(60)
-  razao_social    String?           @db.VarChar(60)
-  cep             String?           @db.VarChar(10)
-  endereco        String?           @db.VarChar(80)
-  bairro          String?           @db.VarChar(60)
-  cidade          String?           @db.VarChar(60)
-  uf              String?           @db.VarChar(2)
-  site            String?           @db.VarChar(200)
-  observacao      String?           @db.VarChar(2000)
-  situacao        String?           @db.VarChar(1)
-  contato         contato[]
-  contrato        contrato[]
-  modelo_contrato modelo_contrato[]
-  servico_cliente servico_cliente[]
+  id                Int               @id @default(autoincrement())
+  modelo_horario_id Int?
+  codigo            Int               @unique(map: "cliente_codigo_uk")
+  cnpj              String?           @db.VarChar(20)
+  ie                String?           @db.VarChar(20)
+  abreviacao        String?           @db.VarChar(20)
+  nome_fantasia     String?           @db.VarChar(60)
+  razao_social      String?           @db.VarChar(60)
+  cep               String?           @db.VarChar(10)
+  endereco          String?           @db.VarChar(80)
+  bairro            String?           @db.VarChar(60)
+  cidade            String?           @db.VarChar(60)
+  uf                String?           @db.VarChar(2)
+  site              String?           @db.VarChar(200)
+  observacao        String?           @db.VarChar(2000)
+  situacao          String?           @db.VarChar(1)
+  contato           contato[]
+  contrato          contrato[]
+  modelo_contrato   modelo_contrato[]
+  servico_cliente   servico_cliente[]
 }
 
 model contato {
