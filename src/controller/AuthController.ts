@@ -18,6 +18,7 @@ export class AuthController {
       return res.status(200).json({
         usuario: {
           id: authenticateUser.user.id,
+          perfil_id: authenticateUser.user.perfil_id,
           nome: authenticateUser.user.nome,
           email: authenticateUser.user.email,
           administrador: authenticateUser.user.administrador,

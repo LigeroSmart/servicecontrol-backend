@@ -1,6 +1,6 @@
 export class Usuario {
     id: number;
-    perfilId: number;
+    perfil_id: number;
     nome: string;
     email: string;
     senha: string;
@@ -9,7 +9,7 @@ export class Usuario {
   
     constructor(
       id: number,
-      perfilId: number,
+      perfil_id: number,
       nome: string,
       email: string,
       senha: string,
@@ -17,7 +17,7 @@ export class Usuario {
       situacao: string
     ) {
       this.id = id;
-      this.perfilId = perfilId
+      this.perfil_id = perfil_id
       this.nome = nome;
       this.email = email;
       this.senha = senha;
