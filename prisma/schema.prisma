@@ -414,7 +414,7 @@ model sla {
 
 model tipo_atividade {
   id                                   Int                                    @id @default(autoincrement())
-  descricao                            String                                 @db.VarChar(40)
+  descricao                            String                                 @unique(map: "uk_tipo_atividade_descricao") @db.VarChar(40)
   situacao                             String                                 @db.VarChar(1)
   atividade                            atividade[]
   modelo_regra_cobranca_tipo_atividade modelo_regra_cobranca_tipo_atividade[]
@@ -444,7 +444,7 @@ model tipo_contrato {
 
 model tipo_horario {
   id                            Int                             @id @default(autoincrement())
-  descricao                     String                          @db.VarChar(20)
+  descricao                     String                          @unique(map: "uk_tipo_horario_descricao") @db.VarChar(20)
   situacao                      String                          @db.VarChar(1)
   atividade                     atividade[]
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
