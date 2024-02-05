@@ -13,7 +13,16 @@ export class UsuarioController {
 
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
-      const users = await this.usuarioUseCase.getAll();
+      const { nome } = req.query;
+      let users = null;
+
+      if (!nome) {
+        users = await this.usuarioUseCase.getAll();
+      } else {
+        users = await this.usuarioUseCase.getByNome(nome);
+      }
+
+      // const users = await this.usuarioUseCase.getAll();
       res.status(200).json(users);
 
     } catch (error: any) {

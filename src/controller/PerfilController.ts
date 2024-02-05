@@ -12,7 +12,17 @@ export class PerfilController {
 
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
-      const perfil = await this.perfilUseCase.getAll();      
+      const { descricao } = req.query;
+      let perfil = null;
+
+      if (!descricao) {
+        perfil = await this.perfilUseCase.getAll();
+      } else {
+        perfil = await this.perfilUseCase.getByDescricao(descricao);
+      }
+
+
+      res.status(200).json(perfil);  
 
     } catch (error: any) {
       if (error instanceof PerfilNotFound) {

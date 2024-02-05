@@ -31,6 +31,9 @@ export class DbUsuarioRepository implements UsuarioRepository {
         administrador: true,
         situacao: true
       },
+      orderBy: {
+        nome:'asc'
+      }
     });
   }
 
@@ -47,6 +50,19 @@ export class DbUsuarioRepository implements UsuarioRepository {
         administrador: true,
         situacao: true
       },
+    });
+  }
+
+  public async getByNome(nome: string): Promise<Perfil | null> {
+    return await prismaClient.usuario.findMany({
+      where: {
+        nome: {
+          contains: nome
+        }
+      },
+      orderBy: {
+        nome: 'asc'
+      }
     });
   }
 

@@ -25,45 +25,11 @@ export class DbPerfilRepository implements PerfilRepository {
         descricao: true,
         situacao: true
       },
+      orderBy: {
+        descricao: 'asc'
+      }
     });
   }
-
-  // public async getPerfilId(perfil_id: number): Promise<IPerfil[] | null> {
-  //   return await prismaClient.perfil.findMany({
-  //     where:{
-  //       id: {
-  //         equals:perfil_id
-  //       }
-  //     },
-  //     select: {
-  //       id: true,
-  //       descricao: true,
-  //       situacao: true,
-  //       perfil_menu: {
-  //         select: {
-  //           id: true,
-  //           perfil_id: true,
-  //           menu_id: true,
-  //           menu: {
-  //             select: {
-  //               id: true,
-  //               ordem: true,
-  //               grupo_id: true,
-  //               descricao:true,
-  //               rota: true,
-  //               ativo: true,
-  //             },
-  //             where: {
-  //               ativo: {
-  //                 equals: 'S'
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     },
-  //   });
-  // }
 
   public async getById(id: number): Promise<IPerfil | null> {
     return await prismaClient.perfil.findUnique({
@@ -90,10 +56,15 @@ export class DbPerfilRepository implements PerfilRepository {
   }
 
   public async getByDescricao(descricao: string): Promise<Perfil | null> {
-    return await prismaClient.perfil.findUnique({
+    return await prismaClient.perfil.findMany({
       where: {
-        descricao,
+        descricao: {
+          contains: descricao
+        }
       },
+      orderBy: {
+        descricao: 'asc'
+      }
     });
   }
 

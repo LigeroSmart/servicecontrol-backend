@@ -72,6 +72,16 @@ export class UsuarioUseCase {
     return user;
   }
 
+  public async getByNome(descricao: string): Promise<IUsuario | null> {
+    const user = await this.usuarioRepository.getByNome(descricao);
+
+    if (!user) {
+      throw new UsuarioNotFound();
+    }
+
+    return user;
+  }
+
   public async update(id: number, data: UpdateUsuarioDTO): Promise<IUsuario | null> {
     const existsUser = await this.getById(id);
 

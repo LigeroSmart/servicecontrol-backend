@@ -53,7 +53,7 @@ model cliente {
 model contato {
   id                       Int                        @id @default(autoincrement())
   cliente_id               Int
-  codigo                   String                     @db.VarChar(20)
+  codigo                   String                     @db.VarChar(20) @unique(map: "contato_codigo_uk")
   nome                     String                     @db.VarChar(40)
   telefone                 String?                    @db.VarChar(20)
   ramal                    String?                    @db.VarChar(10)

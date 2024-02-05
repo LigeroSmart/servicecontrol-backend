@@ -60,9 +60,19 @@ export class PerfilUseCase {
     return perfil;
   }
 
-
+  
   public async getById(id: number): Promise<IPerfil | null> {
     const perfil = await this.perfilRepository.getById(id);
+
+    if (!perfil) {
+      throw new PerfilNotFound();
+    }
+
+    return perfil;
+  }
+
+  public async getByDescricao(descricao: string): Promise<IPerfil | null> {
+    const perfil = await this.perfilRepository.getByDescricao(descricao);
 
     if (!perfil) {
       throw new PerfilNotFound();

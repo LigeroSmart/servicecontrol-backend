@@ -6,6 +6,7 @@ export interface PerfilRepository {
   getAll(): Promise<IPerfil[] | null>;
   getPerfilId(id: number): Promise<IPerfil[] | null>;
   getById(id: number): Promise<IPerfil | null>;
+  getByDescricao(descricao: string): Promise<IPerfil | null>;
   update(id: number, data: IPerfil): Promise<IPerfil | null>;
   delete(id: number): Promise<IPerfil | null>;
 }
