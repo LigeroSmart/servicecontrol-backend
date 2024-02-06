@@ -21,7 +21,7 @@ export class PerfilUseCase {
     itens: []
   ): Promise<IPerfil | null> {
 
-    const existsPerfilByDescricao = await this.perfilRepository.getByDescricao(
+    const existsPerfilByDescricao = await this.perfilRepository.getByUK(
       descricao
     );
 

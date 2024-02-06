@@ -55,12 +55,21 @@ export class DbPerfilRepository implements PerfilRepository {
     return await prismaClient.$queryRaw`select p.id, P.descricao, p.situacao, m.descricao menu, m.rota, m.ordem, m.grupo_id, m.id menu_id from perfil p left outer join perfil_menu pm on p.id = pm.perfil_id left outer join menu m on pm.menu_id = m.id where p.id = ${id} order by m.ordem`;
   }
 
+  public async getByUK(descricao: string): Promise<IPerfil | null> {
+    return await prismaClient.perfil.findUnique({
+      where: {
+        descricao
+      }
+    });
+  }
+
   public async getByDescricao(descricao: string): Promise<Perfil | null> {
     return await prismaClient.perfil.findMany({
       where: {
-        descricao: {
-          contains: descricao
-        }
+         descricao: {
+          contains: 
+            descricao          
+         }      
       },
       orderBy: {
         descricao: 'asc'
