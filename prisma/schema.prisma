@@ -385,15 +385,15 @@ model regra_sla_sla {
 
 model servico {
   id              Int               @id @default(autoincrement())
-  descricao       String?           @db.VarChar(60)
+  descricao       String?           @db.VarChar(60) @unique(map: "servico_descricao_uk")
   situacao        String?           @db.VarChar(1)
   servico_cliente servico_cliente[]
 }
 
 model servico_cliente {
   id                            Int                             @id @default(autoincrement())
-  cliente_id                    Int?
-  servico_id                    Int?
+  cliente_id                    Int?                            
+  servico_id                    Int?                            
   modelo_regra_cobranca_servico modelo_regra_cobranca_servico[]
   modelo_regra_franquia_servico modelo_regra_franquia_servico[]
   modelo_regra_sla_servico      modelo_regra_sla_servico[]
