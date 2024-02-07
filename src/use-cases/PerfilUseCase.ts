@@ -97,7 +97,7 @@ export class PerfilUseCase {
     itens: []
     ): Promise<IPerfil | null> {
     
-    console.log('data', data, 'itens', itens);
+    // console.log('data', data, 'itens', itens);
 
     const existsPerfil = await this.getById(id);
 
@@ -110,28 +110,40 @@ export class PerfilUseCase {
       situacao: data.situacao,
     });
 
+    // Arquiv
+    // itens.forEach(async menuItem => {
+    //   let menuId : number = menuItem.menu_id;
+      
+    //   console.log('menuItem', menuItem);
+
+    //   if (menuItem.deleted) {
+    //     const perfilMenu = await this.perfilMenuRepository.delete(menuItem.id);
+
+    //   } else {
+    //     if (menuItem.id > 0) {
+    //       let perfilMenu = await this.perfilMenuRepository.update(menuItem.id, {
+    //         perfil_id: menuItem.perfil_id,
+    //         menu_id: menuItem.menu_id,
+    //       });
+    //     } 
+    //     else {
+    //       let perfilMenu = await this.perfilMenuRepository.createPerfilMenu({
+    //         perfil_id: menuItem.perfil_id,
+    //         menu_id: menuId,
+    //       });
+    //      }  
+    //   }
+    // });
+
     itens.forEach(async menuItem => {
       let menuId : number = menuItem.menu_id;
-      
-      console.log('menuItem', menuItem);
 
-      if (menuItem.deleted) {
-        const perfilMenu = await this.perfilMenuRepository.delete(menuItem.id);
+      let perfilMenu1 = await this.perfilMenuRepository.deletePerfil(menuItem.perfil_id);
 
-      } else {
-        if (menuItem.id > 0) {
-          let perfilMenu = await this.perfilMenuRepository.update(menuItem.id, {
-            perfil_id: menuItem.perfil_id,
-            menu_id: menuItem.menu_id,
-          });
-        } 
-        else {
-          let perfilMenu = await this.perfilMenuRepository.createPerfilMenu({
-            perfil_id: menuItem.perfil_id,
-            menu_id: menuId,
-          });
-         }  
-      }
+      let perfilMenu2 = await this.perfilMenuRepository.createPerfilMenu({
+        perfil_id: menuItem.perfil_id,
+        menu_id: menuId,
+      });
     });
 
     return perfil;

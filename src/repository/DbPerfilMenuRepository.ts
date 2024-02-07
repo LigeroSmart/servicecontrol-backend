@@ -64,4 +64,14 @@ export class DbPerfilMenuRepository implements PerfilMenuRepository {
     });
   }
 
+  public async deletePerfil(perfilId: number): Promise<IPerfilMenu | null> {
+    return await prismaClient.perfil_menu.deleteMany({
+      where: { 
+        perfil_id: {
+          equals: perfilId
+        }
+      },
+    });
+  }
+
 }

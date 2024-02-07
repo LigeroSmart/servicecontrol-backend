@@ -6,4 +6,5 @@ export interface PerfilMenuRepository {
   getById(id: number): Promise<IPerfilMenu | null>;
   update(id: number, data: IPerfilMenu): Promise<IPerfilMenu | null>;
   delete(id: number): Promise<IPerfilMenu | null>;
+  deletePerfil(perfilId: number): Promise<IPerfilMenu | null>;
 }
