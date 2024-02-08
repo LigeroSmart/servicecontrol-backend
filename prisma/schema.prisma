@@ -12,7 +12,7 @@ model atividade {
   usuario_id        Int
   tipo_horario_id   Int
   tipo_atividade_id Int
-  ticket            String?        @db.VarChar(20)
+  ticket            String         @db.VarChar(20) @unique(map: "atividade_ticket_uk")
   codigo            String?        @db.VarChar(20)
   tipo_atividadeid  Int?
   data_inicio       DateTime?      @db.Date

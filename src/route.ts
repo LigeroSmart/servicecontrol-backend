@@ -10,6 +10,7 @@ import { tipoAtividadeRouter } from './routes/tipo.atividade.routes';
 import { contatoRouter } from './routes/contato.routes';
 import { servicoRouter } from './routes/servico.routes';
 import { servicoClienteRouter } from './routes/servico.cliente.routes';
+import { atividadeRouter } from './routes/atividade.routes';
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use('/api/v1/tipo-atividade', tipoAtividadeRouter);
 router.use('/api/v1/contato', contatoRouter);
 router.use('/api/v1/servico', servicoRouter);
 router.use('/api/v1/servico-cliente', servicoClienteRouter);
+router.use('/api/v1/atividade', atividadeRouter);
 
 export default router;
