@@ -13,16 +13,16 @@ export const createUsuarioValidator = [
     .withMessage('O e-mail precisa conter um mínimo 10 caracteres')
     .isLength({ max: 100 })
     .withMessage('O e-mail precisa conter um maximo de 100 caracteres'),
-  body('senha')
-    .isLength({ min: 6 })
-    .withMessage('A senha precisa conter no mínimo 6 caracteres')
-    .isLength({ max: 12 })
-    .withMessage('A senha precisa conter um maximo de 12 caracteres')
-    .matches(/^(.*[A-Z].*)$/)
-    .withMessage('A senha precisa conter uma letra maiúscula'),
-  body('senha')
-    .matches(/(?=.*\d)/)
-    .withMessage('A senha precisa conter pelo menos um numero'),
+  // body('senha')
+  //   .isLength({ min: 6 })
+  //   .withMessage('A senha precisa conter no mínimo 6 caracteres')
+  //   .isLength({ max: 12 })
+  //   .withMessage('A senha precisa conter um maximo de 12 caracteres')
+  //   .matches(/^(.*[A-Z].*)$/)
+  //   .withMessage('A senha precisa conter uma letra maiúscula'),
+  // body('senha')
+  //   .matches(/(?=.*\d)/)
+  //   .withMessage('A senha precisa conter pelo menos um numero'),
 ];
 
 export const updateUsuarioValidator = [
@@ -31,23 +31,23 @@ export const updateUsuarioValidator = [
     .isLength({ min: 3 })
     .withMessage('O nome precisa conter no mínimo 3 caracteres')
     .optional(),
-  body('usuario')
+  body('email')
     .isString()
     .isLength({ min: 3 })
     .withMessage('O usuario precisa conter um mínimo 3 caracteres')
     .optional(),    
-  body('senha')
-    .isLength({ min: 6 })
-    .withMessage('A senha precisa conter no mínimo 6 caracteres')
-    .isLength({ max: 12 })
-    .withMessage('A senha precisa conter um maximo de 12 caracteres')
-    .matches(/^(.*[A-Z].*)$/)
-    .withMessage('A senha precisa conter uma letra maiúscula')
-    .optional(),
-  body('senha')
-    .matches(/(?=.*\d)/)
-    .withMessage('A senha precisa conter pelo menos um numero')
-    .optional(),
+  // body('senha')
+  //   .isLength({ min: 6 })
+  //   .withMessage('A senha precisa conter no mínimo 6 caracteres')
+  //   .isLength({ max: 10 })
+  //   .withMessage('A senha precisa conter um maximo de 10 caracteres')
+  //   .matches(/^(.*[A-Z].*)$/)
+  //   .withMessage('A senha precisa conter uma letra maiúscula'),
+  //   //.optional(),
+  // body('senha')
+  //   .matches(/(?=.*\d)/)
+  //   .withMessage('A senha precisa conter pelo menos um numero'),
+  //   //.optional(),
 ];
 
 export const updateUsuarioPasswordValidator = [
@@ -55,7 +55,7 @@ export const updateUsuarioPasswordValidator = [
     .isLength({ min: 6 })
     .withMessage('A senha precisa conter no mínimo 6 caracteres')
     .isLength({ max: 10 })
-    .withMessage('A senha precisa conter um maximo de 12 caracteres')
+    .withMessage('A senha precisa conter um maximo de 10 caracteres')
     .matches(/^(.*[A-Z].*)$/)
     .withMessage('A senha precisa conter uma letra maiúscula')
     .optional(),

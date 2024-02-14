@@ -37,7 +37,7 @@ usuarioRouter.put(
 
 usuarioRouter.put(
   '/:id/password',
-  authMiddleware,
+  //authMiddleware,
   updateUsuarioPasswordValidator,
   validate,
   userController.updatePassword

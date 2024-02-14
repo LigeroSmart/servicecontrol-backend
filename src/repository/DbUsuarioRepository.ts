@@ -95,11 +95,15 @@ export class DbUsuarioRepository implements UsuarioRepository {
     });
   }
 
-  public async validationUsuario(id: number): Promise<IUsuario | null> {
+  public async validationUsuario(
+    id: number,
+    senha: string
+  ): Promise<IUsuario | null> {
     const user = await prismaClient.usuario.update({
       where: { id },
       data: {
-        situacao: 'S',
+        senha: senha,
+        situacao: 'A',
       },
     });
 

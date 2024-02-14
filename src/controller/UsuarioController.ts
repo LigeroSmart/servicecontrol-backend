@@ -54,7 +54,9 @@ export class UsuarioController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { perfil_id, nome, email, senha, administrador, situacao } = req.body;
+      const { perfil_id, nome, email, administrador, situacao } = req.body;
+
+      const senha = '';
 
       const user = await this.usuarioUseCase.createUsuario(email, {
         perfil_id,
@@ -84,7 +86,7 @@ export class UsuarioController {
 
       const user = await this.usuarioUseCase.update(Number(id), {
         perfil_id,
-        nome,        
+        nome,
         administrador,
       });
 
@@ -126,7 +128,9 @@ export class UsuarioController {
     try {
       const { id } = req.params;
 
-      const user = await this.usuarioUseCase.validationUsuario(Number(id));
+      const { senha } = req.body;
+
+      const user = await this.usuarioUseCase.validationUsuario(Number(id), senha);
 
       res.status(200).json({ message: 'Usuário ativado com sucesso.' });
     } catch (error: any) {

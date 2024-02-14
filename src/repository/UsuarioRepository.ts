@@ -7,5 +7,5 @@ export interface UsuarioRepository {
   getByNome(nome: string): Promise<IUsuario | null>;
   update(id: number, data: IUsuario): Promise<IUsuario | null>;
   delete(id: number): Promise<IUsuario | null>;
-  validationUsuario(id: number): Promise<IUsuario | null>;
+  validationUsuario(id: number, senha: string): Promise<IUsuario | null>;
 }

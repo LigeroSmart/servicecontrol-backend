@@ -31,7 +31,7 @@ export class UsuarioUseCase {
       throw new UsuarioAlreadyExists();
     }
 
-    const passwordHash = await hasPassword(data.senha);
+    //const passwordHash = await hasPassword(data.senha);
 
     data.situacao = 'I';
 
@@ -39,7 +39,7 @@ export class UsuarioUseCase {
       perfil_id: data.perfil_id,
       nome: data.nome,
       email: data.email,
-      senha: passwordHash,
+      senha: '',
       administrador: data.administrador,
       situacao: data.situacao,
     });
@@ -110,14 +110,16 @@ export class UsuarioUseCase {
     return user;
   }
 
-  public async validationUsuario(id: number): Promise<IUsuario | null> {
+  public async validationUsuario(id: number, senha: string): Promise<IUsuario | null> {
     const existsUser = await this.getById(id);
 
     if (!existsUser) {
       throw new UsuarioNotFound();
     }
 
-    const user = await this.usuarioRepository.validationUsuario(id);
+    const passwordHash = await hasPassword(senha);
+
+    const user = await this.usuarioRepository.validationUsuario(id, passwordHash);
 
     return user;
   }
