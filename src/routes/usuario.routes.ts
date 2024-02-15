@@ -27,6 +27,8 @@ usuarioRouter.get('/', authMiddleware, userController.index);
 
 usuarioRouter.get('/:id', authMiddleware, userController.show);
 
+usuarioRouter.get('/:id/is-active', userController.isActive);
+
 usuarioRouter.put(
   '/:id',
   authMiddleware,

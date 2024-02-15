@@ -52,6 +52,29 @@ export class UsuarioController {
     }
   };
 
+  public isActive = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params;
+
+      const user = await this.usuarioUseCase.getById(Number(id));
+
+      let retorno : boolean = false;
+
+      if (user) {
+        retorno = (user.situacao == 'A');
+      }
+
+      res.status(200).json(retorno);
+    } catch (error: any) {
+      if (error instanceof UsuarioNotFound) {
+        res.status(404).json({ error: error.message });
+      } else {
+        console.log(error.message);
+        res.status(500).json({ error: 'Erro ao listar usuário' });
+      }
+    }
+  };  
+
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
       const { perfil_id, nome, email, administrador, situacao } = req.body;
