@@ -111,6 +111,7 @@ export class UsuarioController {
         perfil_id,
         nome,
         administrador,
+        situacao
       });
 
       res

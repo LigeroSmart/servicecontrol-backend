@@ -93,6 +93,7 @@ export class UsuarioUseCase {
       perfil_id: data.perfil_id,
       nome: data.nome,
       administrador: data.administrador,
+      situacao: data.situacao,
     });
 
     return user;

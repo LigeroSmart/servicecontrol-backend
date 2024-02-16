@@ -21,5 +21,6 @@ export interface IUsuario {
     perfil_id: number,
     nome: string;
     administrador: string;
+    situacao: string;
   }
   
