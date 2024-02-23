@@ -10,7 +10,6 @@ datasource db {
 model atividade {
   id                Int            @id @default(autoincrement())
   usuario_id        Int
-  tipo_horario_id   Int
   tipo_atividade_id Int
   ticket            String         @db.VarChar(20) @unique(map: "atividade_ticket_uk")
   codigo            String?        @db.VarChar(20)
@@ -22,7 +21,6 @@ model atividade {
   assunto           String?        @db.VarChar(100)
   descricao         String?        @db.VarChar(1000)
   tipo_atividade    tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_horario      tipo_horario   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   usuario           usuario        @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -446,7 +444,6 @@ model tipo_horario {
   id                            Int                             @id @default(autoincrement())
   descricao                     String                          @unique(map: "uk_tipo_horario_descricao") @db.VarChar(20)
   situacao                      String                          @db.VarChar(1)
-  atividade                     atividade[]
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
   regra_cobranca_horario        regra_cobranca_horario[]
 }

@@ -3,15 +3,12 @@ import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
 
 export const createAtividadeValidator = [
-  body('ticket')
-    .isInt( {min: 1})
-    .withMessage('Ticket é obrigatório'),
   body('codigo')
     .isInt( {min: 1})
     .withMessage('Código é obrigatório'),
-  body('tipo_horario_id')
+  body('ticket')
     .isInt( {min: 1})
-    .withMessage('Tipo de horário é obrigatório'),    
+    .withMessage('Ticket é obrigatório'),
   body('tipo_atividade_id')
     .isInt( {min: 1})
     .withMessage('Tipo de atividade é obrigatório'),
@@ -32,15 +29,12 @@ export const createAtividadeValidator = [
 ];
 
 export const updateAtividadeValidator = [
-  body('ticket')
-    .isInt( {min: 1})
-    .withMessage('Ticket é obrigatório'),
   body('codigo')
     .isInt( {min: 1})
     .withMessage('Código é obrigatório'),
-  body('tipo_horario_id')
+  body('ticket')
     .isInt( {min: 1})
-    .withMessage('Tipo de horário é obrigatório'),    
+    .withMessage('Ticket é obrigatório'),
   body('tipo_atividade_id')
     .isInt( {min: 1})
     .withMessage('Tipo de atividade é obrigatório'),

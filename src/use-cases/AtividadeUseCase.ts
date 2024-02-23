@@ -36,7 +36,6 @@ export class AtividadeUseCase {
 
     const atividade = await this.AtividadeRepository.createAtividade({
         usuario_id : data.usuario_id,
-        tipo_horario_id : data.tipo_horario_id,
         tipo_atividade_id : data.tipo_atividade_id,
         ticket : data.ticket,
         codigo : data.codigo,
@@ -96,7 +95,7 @@ export class AtividadeUseCase {
 
     const atividade = await this.AtividadeRepository.update(id, {
         usuario_id : data.usuario_id,
-        tipo_horario_id : data.tipo_horario_id,
+        //tipo_horario_id : data.tipo_horario_id,
         tipo_atividade_id : data.tipo_atividade_id,
         ticket : data.ticket,
         codigo : data.codigo,

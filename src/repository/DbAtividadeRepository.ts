@@ -11,7 +11,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: {
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,
@@ -32,7 +31,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: {
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,
@@ -57,7 +55,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: {
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,
@@ -79,7 +76,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: {
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,
@@ -103,7 +99,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: {
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,
@@ -124,7 +119,6 @@ export class DbAtividadeRepository implements AtividadeRepository {
       select: { 
         id: true,
         usuario_id: true,
-        tipo_horario_id: true,
         tipo_atividade_id: true,
         ticket: true,
         codigo: true,

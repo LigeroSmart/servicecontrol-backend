@@ -79,11 +79,11 @@ export class AtividadeController {
         throw new UsuarioNotFound;
       }
 
-      const tipoHorario = await this.TipoHorarioUseCase.getById(Number(tipo_horario_id));
+      // const tipoHorario = await this.TipoHorarioUseCase.getById(Number(tipo_horario_id));
 
-      if (!tipoHorario) {
-        throw new TipoHorarioNotFound;
-      }
+      // if (!tipoHorario) {
+      //   throw new TipoHorarioNotFound;
+      // }
 
       const tipoAtividade = await this.TipoAtividadeUseCase.getById(Number(tipo_atividade_id));
 
@@ -94,7 +94,6 @@ export class AtividadeController {
 
       const atividade = await this.AtividadeUseCase.createAtividade(ticket, {
         usuario_id,
-        tipo_horario_id,
         tipo_atividade_id,
         ticket,
         codigo,

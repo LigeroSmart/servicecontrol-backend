@@ -1,7 +1,7 @@
 export interface IAtividade {
     id?: number;
     usuario_id: number;
-    tipo_horario_id: number;
+    //tipo_horario_id: number;
     tipo_atividade_id: number;
     ticket: string;
     codigo: string;
@@ -15,7 +15,7 @@ export interface IAtividade {
   
   export interface CreateAtividadeDTO {
     usuario_id: number;
-    tipo_horario_id: number;
+    //tipo_horario_id: number;
     tipo_atividade_id: number;
     ticket: string;
     codigo: string;
@@ -29,7 +29,7 @@ export interface IAtividade {
   
   export interface UpdateAtividadeDTO {
     usuario_id: number;
-    tipo_horario_id: number;
+    //tipo_horario_id: number;
     tipo_atividade_id: number;
     ticket: string;
     codigo: string;
