@@ -10,6 +10,7 @@ export class DbServicoRepository implements ServicoRepository {
       data: data,
       select: {
         id: true,
+        codigo: true,
         descricao: true,
         situacao: true
       },
@@ -22,6 +23,7 @@ export class DbServicoRepository implements ServicoRepository {
     return await prismaClient.servico.findMany({
       select: {
         id: true,
+        codigo: true,
         descricao: true,
         situacao: true
       },
@@ -38,6 +40,7 @@ export class DbServicoRepository implements ServicoRepository {
       },
       select: {
         id: true,
+        codigo: true,
         descricao: true,
         situacao: true,
       },
@@ -66,6 +69,7 @@ export class DbServicoRepository implements ServicoRepository {
       data: data,
       select: { 
         id: true,
+        codigo: true,
         descricao: true,
         situacao: true
       }

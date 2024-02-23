@@ -3,6 +3,10 @@ import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
 
 export const createServicoValidator = [
+  body('codigo')
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage('Código é obrigatório'),
   body('descricao')
     .isString()
     .isLength({ min: 1 })
@@ -18,6 +22,10 @@ export const createServicoValidator = [
 ];
 
 export const updateServicoValidator = [
+  body('codigo')
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage('Código é obrigatório'),
   body('descricao')
     .isString()
     .isLength({ min: 1 })
