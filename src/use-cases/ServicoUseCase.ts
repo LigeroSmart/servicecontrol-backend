@@ -25,7 +25,6 @@ export class ServicoUseCase {
     }
 
     const servico = await this.ServicoRepository.createServico({
-      codigo: data.codigo,
       descricao: data.descricao,
       situacao: data.situacao
     });
@@ -64,7 +63,6 @@ export class ServicoUseCase {
     }
 
     const servico = await this.ServicoRepository.update(id, {
-      codigo: data.codigo,
       descricao: data.descricao,
       situacao: data.situacao,
     });

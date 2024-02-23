@@ -383,7 +383,6 @@ model regra_sla_sla {
 
 model servico {
   id              Int               @id @default(autoincrement())
-  codigo          String?           @db.VarChar(10)
   descricao       String?           @db.VarChar(60) @unique(map: "servico_descricao_uk")
   situacao        String?           @db.VarChar(1)
   servico_cliente servico_cliente[]
