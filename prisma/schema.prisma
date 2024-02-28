@@ -7,6 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model centro_custo {
+  id                Int           @id @default(autoincrement())
+  descricao         String        @db.VarChar(20) @unique(map: "centro_custo_descricao_uk")
+  situacao          String        @db.VarChar(1)
+  contrato          contrato[]
+  modelo_contrato   modelo_contrato[]
+}
+
+model tipo_contato {
+  id                Int           @id @default(autoincrement())
+  descricao         String        @db.VarChar(20) @unique(map: "tipo_contato_descricao_uk")
+  situacao          String        @db.VarChar(1)
+}
+
 model atividade {
   id                Int            @id @default(autoincrement())
   usuario_id        Int
@@ -78,6 +92,7 @@ model contrato {
   situacao               String?                  @db.VarChar(1)
   cliente                cliente                  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipo_contrato          tipo_contrato?           @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  centro_custo           centro_custo?            @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   regra_cobranca         regra_cobranca[]
   regra_cobranca_horario regra_cobranca_horario[]
   regra_franquia         regra_franquia[]
@@ -108,6 +123,7 @@ model modelo_contrato {
   situacao                      String?                         @db.VarChar(1)
   cliente                       cliente                         @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipo_contrato                 tipo_contrato?                  @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  centro_custo                  centro_custo?                   @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   modelo_regra_cobranca         modelo_regra_cobranca[]
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
   modelo_regra_franquia         modelo_regra_franquia[]
@@ -433,7 +449,7 @@ model tipo_chamado {
 
 model tipo_contrato {
   id              Int               @id @default(autoincrement())
-  descricao       String?           @db.VarChar(80)
+  descricao       String            @unique(map: "uk_tipo_contrato_descricao") @db.VarChar(80)
   cobranca_unica  String?           @db.VarChar(1)
   situacao        String?           @db.VarChar(1)
   contrato        contrato[]

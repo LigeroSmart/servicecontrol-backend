@@ -11,6 +11,9 @@ import { contatoRouter } from './routes/contato.routes';
 import { servicoRouter } from './routes/servico.routes';
 import { servicoClienteRouter } from './routes/servico.cliente.routes';
 import { atividadeRouter } from './routes/atividade.routes';
+import { centroCustoRouter } from './routes/centro.custo.routes';
+import { tipoContatoRouter } from './routes/tipo.contato.routes';
+import { tipoContratoRouter } from './routes/tipo.contrato.routes';
 
 const router = Router();
 
@@ -26,5 +29,8 @@ router.use('/api/v1/contato', contatoRouter);
 router.use('/api/v1/servico', servicoRouter);
 router.use('/api/v1/servico-cliente', servicoClienteRouter);
 router.use('/api/v1/atividade', atividadeRouter);
+router.use('/api/v1/centro-custo', centroCustoRouter);
+router.use('/api/v1/tipo-contato', tipoContatoRouter);
+router.use('/api/v1/tipo-contrato', tipoContratoRouter);
 
 export default router;

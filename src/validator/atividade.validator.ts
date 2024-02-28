@@ -3,9 +3,6 @@ import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
 
 export const createAtividadeValidator = [
-  body('codigo')
-    .isInt( {min: 1})
-    .withMessage('Código é obrigatório'),
   body('ticket')
     .isInt( {min: 1})
     .withMessage('Ticket é obrigatório'),
@@ -29,9 +26,6 @@ export const createAtividadeValidator = [
 ];
 
 export const updateAtividadeValidator = [
-  body('codigo')
-    .isInt( {min: 1})
-    .withMessage('Código é obrigatório'),
   body('ticket')
     .isInt( {min: 1})
     .withMessage('Ticket é obrigatório'),
