@@ -102,7 +102,7 @@ model contrato {
 }
 
 model menu {
-  id          Int           @id @default(autoincrement())
+  id          Int           @id
   ordem       Int?
   descricao   String?       @db.VarChar(40)
   rota        String?       @db.VarChar(100)
