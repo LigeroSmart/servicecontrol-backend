@@ -68,8 +68,8 @@ export class ClienteController {
 
       if ( (modeloHorario) && (modeloHorario.situacao == 'I')) {
         throw new ModeloHorarioInativo();
-      }            
-
+      }          
+           
       const Cliente = await this.ClienteUseCase.createCliente(codigo, {
         modelo_horario_id,
         codigo,
@@ -98,7 +98,7 @@ export class ClienteController {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);
-        res.status(500).json({ error: 'Erro ao criar Cliente' });
+        res.status(500).json({ error: 'Erro ao criar cliente' });
       }
     }
   };
@@ -113,7 +113,7 @@ export class ClienteController {
 
       if ( (modeloHorario) && (modeloHorario.situacao == 'I')) {
         throw new ModeloHorarioInativo();
-      }      
+      }
 
       const cliente = await this.ClienteUseCase.update(Number(id), {
         modelo_horario_id,
@@ -145,7 +145,7 @@ export class ClienteController {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);
-        res.status(500).json({ error: 'Erro ao tentar atualizar o Cliente' });
+        res.status(500).json({ error: 'Erro ao tentar atualizar o cliente' });
       }
     }
   };

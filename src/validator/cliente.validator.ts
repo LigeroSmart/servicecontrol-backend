@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
+import { cnpj as validaCnpj } from 'cpf-cnpj-validator';
 
 export const createClienteValidator = [
   body('codigo')
@@ -10,9 +11,15 @@ export const createClienteValidator = [
     .isInt( {min: 1})
     .withMessage('Modelo de horário é obrigatório'),    
   body('cnpj')
-    .isString()
-    .isLength({ min: 1 })
-    .withMessage('CNPJ é obrigatório'),
+    .custom(value => {
+      if (!value) {
+        return Promise.reject('CNPJ obrigatório.');
+      }
+      if (!validaCnpj.isValid(value)) {
+        return Promise.reject('CNPJ inválido');
+      }
+      return true
+    }),
   body('abreviacao')
     .isString()
     .isLength({ min: 1 })
@@ -35,9 +42,15 @@ export const updateClienteValidator = [
     .isInt( {min: 1})
     .withMessage('Modelo de horário é obrigatório'),    
   body('cnpj')
-    .isString()
-    .isLength({ min: 1 })
-    .withMessage('CNPJ é obrigatório'),
+    .custom(value => {
+      if (!value) {
+        return Promise.reject('CNPJ obrigatório.');
+      }
+      if (!validaCnpj.isValid(value)) {
+        return Promise.reject('CNPJ inválido');
+      }
+      return true
+    }),
   body('abreviacao')
     .isString()
     .isLength({ min: 1 })
