@@ -21,15 +21,24 @@ export class ClienteController {
 
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
-      const Cliente = await this.ClienteUseCase.getAll();
-      res.status(200).json(Cliente);
+      const { situacao } = req.query;
+
+      let cliente = null;
+  
+      if (!situacao) {
+        cliente = await this.ClienteUseCase.getAll();
+      } else {
+        cliente = await this.ClienteUseCase.getBySituacao(situacao);
+      }
+      // const Cliente = await this.ClienteUseCase.getAll();
+      res.status(200).json(cliente);
 
     } catch (error: any) {
       if (error instanceof ClienteNotFound) {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);
-        res.status(500).json({ error: 'Erro ao listar Cliente' });
+        res.status(500).json({ error: 'Erro ao listar cliente' });
       }
     }
   };

@@ -12,15 +12,25 @@ export class ModeloHorarioController {
 
   public index = async (req: Request, res: Response): Promise<void> => {
     try {
-      const ModeloHorario = await this.ModeloHorarioUseCase.getAll();
-      res.status(200).json(ModeloHorario);
+      const { situacao } = req.query;
+
+      let modeloHorario = null;
+  
+      if (!situacao) {
+        modeloHorario = await this.ModeloHorarioUseCase.getAll();
+      } else {
+        modeloHorario = await this.ModeloHorarioUseCase.getBySituacao(situacao);
+      }
+
+      // const ModeloHorario = await this.ModeloHorarioUseCase.getAll();
+      res.status(200).json(modeloHorario);
 
     } catch (error: any) {
       if (error instanceof ModeloHorarioNotFound) {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);
-        res.status(500).json({ error: 'Erro ao listar ModeloHorario' });
+        res.status(500).json({ error: 'Erro ao listar modelo horario' });
       }
     }
   };

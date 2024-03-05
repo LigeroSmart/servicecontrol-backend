@@ -82,6 +82,14 @@ export class DbClienteRepository implements ClienteRepository {
       },
     });
   }
+
+  public async getBySituacao(situacao: string): Promise<ICliente | null> {
+    return await prismaClient.cliente.findMany({
+      where: {
+        situacao,
+      },
+    });
+  }  
   
   public async getByCodigo(codigo: number): Promise<ICliente | null> {
     return await prismaClient.cliente.findUnique({

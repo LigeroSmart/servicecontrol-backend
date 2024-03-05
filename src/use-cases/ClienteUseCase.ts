@@ -70,6 +70,16 @@ export class ClienteUseCase {
     return Cliente;
   }
 
+  public async getBySituacao(situacao: string): Promise<ICliente | null> {
+    const cliente = await this.ClienteRepository.getBySituacao(situacao);
+
+    if (!cliente) {
+      throw new ClienteNotFound();
+    }
+
+    return cliente;
+  }    
+
   public async update(
     id: number, 
     data: UpdateClienteDTO

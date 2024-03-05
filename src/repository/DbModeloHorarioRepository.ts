@@ -44,6 +44,14 @@ export class DbModeloHorarioRepository implements ModeloHorarioRepository {
     });
   }
 
+  public async getBySituacao(situacao: string): Promise<IModeloHorario | null> {
+    return await prismaClient.modelo_horario.findMany({
+      where: {
+        situacao,
+      },
+    });
+  }
+
   public async getByDescricao(descricao: string): Promise<IModeloHorario | null> {
     return await prismaClient.modelo_horario.findUnique({
       where: {

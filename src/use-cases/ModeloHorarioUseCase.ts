@@ -52,6 +52,16 @@ export class ModeloHorarioUseCase {
     return ModeloHorario;
   }
 
+  public async getBySituacao(situacao: string): Promise<IModeloHorario | null> {
+    const modeloHorario = await this.ModeloHorarioRepository.getBySituacao(situacao);
+
+    if (!modeloHorario) {
+      throw new ModeloHorarioNotFound();
+    }
+
+    return modeloHorario;
+  }  
+
   public async update(
     id: number, 
     data: UpdateModeloHorarioDTO
