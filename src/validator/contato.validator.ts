@@ -3,9 +3,6 @@ import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
 
 export const createContatoValidator = [
-  body('codigo')
-    .isInt( {min: 1})
-    .withMessage('Código é obrigatório'),
   body('cliente_id')
     .isInt( {min: 1})
     .withMessage('Cliente é obrigatório'),    
@@ -32,9 +29,6 @@ export const createContatoValidator = [
 ];
 
 export const updateContatoValidator = [
-  body('codigo')
-    .isInt( {min: 1})
-    .withMessage('Código é obrigatório'),
   body('cliente_id')
     .isInt( {min: 1})
     .withMessage('Cliente é obrigatório'),    

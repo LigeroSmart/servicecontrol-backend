@@ -11,7 +11,6 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
-        codigo: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -29,7 +28,6 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
-        codigo: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -51,7 +49,6 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
-        codigo: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -63,21 +60,22 @@ export class DbContatoRepository implements ContatoRepository {
   }
   
   public async getByCodigo(codigo: string): Promise<IContato | null> {
-    return await prismaClient.contato.findUnique({
-      where: {
-        codigo,
-      },
-      select: {
-        id: true,
-        cliente_id: true,
-        codigo: true,
-        nome: true,
-        telefone: true,
-        ramal: true,
-        celular: true,
-        email: true,
-      },
-    });
+    return null;
+    // return await prismaClient.contato.findUnique({
+    //   where: {
+    //     codigo,
+    //   },
+    //   select: {
+    //     id: true,
+    //     cliente_id: true,
+    //     codigo: true,
+    //     nome: true,
+    //     telefone: true,
+    //     ramal: true,
+    //     celular: true,
+    //     email: true,
+    //   },
+    // });
   }
 
   public async update(id: number, data: UpdateContatoDTO): Promise<IContato | null> {
@@ -87,7 +85,6 @@ export class DbContatoRepository implements ContatoRepository {
       select: { 
         id: true,
         cliente_id: true,
-        codigo: true,
         nome: true,
         telefone: true,
         ramal: true,

@@ -15,23 +15,21 @@ export class ContatoUseCase {
   }
 
   public async createContato(
-    codigo: string,
     data: CreateContatoDTO
   ): Promise<IContato | null> {
 
-    const existsContato = await this.ContatoRepository.getByCodigo(
-      codigo
-    );
+    // const existsContato = await this.ContatoRepository.getByCodigo(
+    //   codigo
+    // );
 
-    if (existsContato) {
-      throw new ContatoAlreadyExists();
-    }
+    // if (existsContato) {
+    //   throw new ContatoAlreadyExists();
+    // }
 
     data.situacao = "A";
 
     const contato = await this.ContatoRepository.createContato({
       cliente_id: data.cliente_id,
-      codigo: data.codigo,
       nome: data.nome,
       telefone: data.telefone,
       ramal: data.ramal,
@@ -72,7 +70,6 @@ export class ContatoUseCase {
 
     const contato = await this.ContatoRepository.update(id, {
         cliente_id: data.cliente_id,
-        codigo: data.codigo,
         nome: data.nome,
         telefone: data.telefone,
         ramal: data.ramal,

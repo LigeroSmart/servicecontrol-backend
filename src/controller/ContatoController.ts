@@ -53,7 +53,7 @@ export class ContatoController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { cliente_id, codigo, nome, telefone, ramal, celular, email, situacao } = req.body;
+      const { cliente_id, nome, telefone, ramal, celular, email, situacao } = req.body;
       
       const cliente = await this.clienteUseCase.getById(Number(cliente_id));
 
@@ -61,9 +61,8 @@ export class ContatoController {
         throw new ClienteInativo();
       }            
 
-      const contato = await this.contatoUseCase.createContato(codigo, {
+      const contato = await this.contatoUseCase.createContato({
         cliente_id,
-        codigo,
         nome,
         telefone,
         ramal,
@@ -91,7 +90,7 @@ export class ContatoController {
     try {
       const { id } = req.params;
 
-      const { cliente_id, codigo, nome, telefone, ramal, celular, email, situacao } = req.body;
+      const { cliente_id, nome, telefone, ramal, celular, email, situacao } = req.body;
 
       const cliente = await this.clienteUseCase.getById(Number(cliente_id));
 
@@ -101,7 +100,6 @@ export class ContatoController {
 
       const contato = await this.contatoUseCase.update(Number(id), {
         cliente_id,
-        codigo,
         nome,
         telefone,
         ramal,
