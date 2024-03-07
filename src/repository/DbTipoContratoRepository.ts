@@ -47,10 +47,10 @@ export class DbTipoContratoRepository implements TipoContratoRepository {
     });
   }
 
-  public async getByDescricao(descricao: string): Promise<ITipoContrato | null> {
+  public async getByCodigo(codigo: string): Promise<ITipoContrato | null> {
     return await prismaClient.tipo_contrato.findUnique({
       where: {
-        descricao,
+        codigo,
       },
     });
   }

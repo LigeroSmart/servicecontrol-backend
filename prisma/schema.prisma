@@ -79,10 +79,9 @@ model contato {
 model contrato {
   id                     Int                      @id @default(autoincrement())
   cliente_id             Int
-  modelo_contrato_id     Int?
   tipo_contrato_id       Int?
   centro_custo_id        Int?
-  numero                 String?                  @db.VarChar(20)
+  numero                 String?                  @db.VarChar(20) @unique(map: "contrato_numero_uk")
   descricao              String?                  @db.VarChar(2000)
   inicio_vigencia        DateTime?                @db.Date
   termino_vigencia       DateTime?                @db.Date
