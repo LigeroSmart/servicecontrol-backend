@@ -92,7 +92,6 @@ model contrato {
   tipo_contrato          tipo_contrato?           @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   centro_custo           centro_custo?            @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   regra_cobranca         regra_cobranca[]
-  regra_cobranca_horario regra_cobranca_horario[]
   regra_franquia         regra_franquia[]
   regra_sla_contato      regra_sla_contato[]
   regra_sla_servico      regra_sla_servico[]
@@ -287,14 +286,15 @@ model regra_cobranca {
   regra_cobranca_servico        regra_cobranca_servico[]
   regra_cobranca_tipo_atividade regra_cobranca_tipo_atividade[]
   regra_cobranca_tipo_chamado   regra_cobranca_tipo_chamado[]
+  regra_cobranca_horario        regra_cobranca_horario[]
 }
 
 model regra_cobranca_horario {
-  id              Int           @id @default(autoincrement())
-  contrato_id     Int
-  tipo_horario_id Int?
-  contrato        contrato      @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_horario    tipo_horario? @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                  Int           @id @default(autoincrement())
+  regra_cobranca_id   Int?
+  tipo_horario_id     Int?
+  regra_cobranca      regra_cobranca?      @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario        tipo_horario? @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model regra_cobranca_servico {
@@ -316,7 +316,7 @@ model regra_cobranca_tipo_atividade {
 model regra_cobranca_tipo_chamado {
   id                Int            @id @default(autoincrement())
   regra_cobranca_id Int
-  tipo_chamado_id   Int?
+  tipo_chamado_id   Int
   bloqueado         String?        @db.VarChar(1)
   regra_cobranca    regra_cobranca @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipo_chamado      tipo_chamado?  @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

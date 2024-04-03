@@ -21,16 +21,19 @@ export const createContratoValidator = [
     .isLength({ min: 1 })
     .withMessage('Descrição é obrigatório'), 
   body('inicio_vigencia')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Inicio de vigência é obrigatório'), 
   body('termino_vigencia')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Término de vigência é obrigatório'),     
   body('termino_contrato')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Término de contrato é obrigatório'),
   body('valor_mensal')
     .isInt()
@@ -64,16 +67,19 @@ export const updateContratoValidator = [
     .isLength({ min: 1 })
     .withMessage('Descrição é obrigatório'), 
   body('inicio_vigencia')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Inicio de vigência é obrigatório'), 
   body('termino_vigencia')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Término de vigência é obrigatório'),     
   body('termino_contrato')
-    .isString()
-    .isLength({ min: 1 })
+    .exists()
+    .not()
+    .isDate()
     .withMessage('Término de contrato é obrigatório'),     
   body('valor_mensal')
     .isInt()

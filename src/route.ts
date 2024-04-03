@@ -15,6 +15,7 @@ import { centroCustoRouter } from './routes/centro.custo.routes';
 import { tipoContatoRouter } from './routes/tipo.contato.routes';
 import { tipoContratoRouter } from './routes/tipo.contrato.routes';
 import { contratoRouter } from './routes/contrato.routes';
+import { contratoRegraCobrancaRouter } from './routes/contrato.regra.cobranca.routes';
 
 const router = Router();
 
@@ -34,5 +35,6 @@ router.use('/api/v1/centro-custo', centroCustoRouter);
 router.use('/api/v1/tipo-contato', tipoContatoRouter);
 router.use('/api/v1/tipo-contrato', tipoContratoRouter);
 router.use('/api/v1/contrato', contratoRouter);
+router.use('/api/v1/contrato-regra-cobranca', contratoRegraCobrancaRouter);
 
 export default router;
