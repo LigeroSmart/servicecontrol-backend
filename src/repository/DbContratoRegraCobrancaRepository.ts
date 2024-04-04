@@ -149,28 +149,54 @@ export class DbContratoRegraCobrancaRepository implements ContratoRegraCobrancaR
           select:{
             id: true,
             regra_cobranca_id: true,
-            tipo_horario_id: true
+            tipo_horario_id: true,
+            tipo_horario: {
+              select: {
+                descricao: true
+              }
+            }
           }
         },
         regra_cobranca_servico: {
           select: {
             id: true,
             regra_cobranca_id: true,
-            servico_cliente_id: true
+            servico_cliente_id: true,
+            servico_cliente: {
+              select: {
+                cliente_id: true,
+                cliente: {
+                  select: {
+                    codigo: true,
+                    nome_fantasia: true
+                  }
+                }
+              }
+            }
           }
         },
         regra_cobranca_tipo_atividade: {
           select: {
             id: true,
             regra_cobranca_id: true,
-            tipo_atividade_id: true
+            tipo_atividade_id: true,
+            tipo_atividade: {
+              select:{
+                descricao : true
+              }
+            }
           }
         },
         regra_cobranca_tipo_chamado: {
           select: {
             id: true,
             regra_cobranca_id: true,
-            tipo_chamado_id: true
+            tipo_chamado_id: true,
+            tipo_chamado: {
+              select: {
+                descricao: true
+              }
+            }
           }
         }
       },
