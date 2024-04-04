@@ -437,7 +437,7 @@ model tipo_atividade {
 
 model tipo_chamado {
   id                                 Int                                  @id @default(autoincrement())
-  descricao                          String?                              @db.VarChar(40)
+  descricao                          String?                              @unique(map: "uk_tipo_chamado_descricao") @db.VarChar(40)
   situacao                           String?                              @db.VarChar(1)
   modelo_regra_cobranca_tipo_chamado modelo_regra_cobranca_tipo_chamado[]
   modelo_regra_franquia_tipo_chamado modelo_regra_franquia_tipo_chamado[]
