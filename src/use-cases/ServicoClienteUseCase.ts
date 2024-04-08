@@ -55,6 +55,16 @@ export class ServicoClienteUseCase {
     return servicoCliente;
   }
 
+  public async getByClienteId(cliente_id: number): Promise<IServicoCliente | null> {
+    const servicoCliente = await this.ServicoClienteRepository.getByClienteId(cliente_id);
+
+    if (!servicoCliente) {
+      throw new ServicoClienteNotFound();
+    }
+
+    return servicoCliente;
+  }  
+
   public async update(
     id: number, 
     data: UpdateServicoClienteDTO

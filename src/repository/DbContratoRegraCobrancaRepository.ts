@@ -165,10 +165,16 @@ export class DbContratoRegraCobrancaRepository implements ContratoRegraCobrancaR
             servico_cliente: {
               select: {
                 cliente_id: true,
+                servico_id: true,
                 cliente: {
                   select: {
                     codigo: true,
                     nome_fantasia: true
+                  }
+                },
+                servico: {
+                  select: {
+                    descricao: true
                   }
                 }
               }

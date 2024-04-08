@@ -9,6 +9,7 @@ import { ClienteUseCase } from '../use-cases/ClienteUseCase';
 import { ServicoNotFound } from '../errors/ServicoNotFound';
 import { ServicoInativo } from '../errors/ServicoInativo';
 import { ServicoUseCase } from '../use-cases/ServicoUseCase';
+import { ServicoCliente } from '../entities/Servico.Cliente';
 
 export class ServicoClienteController {
   
@@ -47,6 +48,23 @@ export class ServicoClienteController {
       res.status(200).json(servicoCliente);
     } catch (error: any) {
       if (error instanceof ServicoClienteNotFound) {
+        res.status(404).json({ error: error.message });
+      } else {
+        console.log(error.message);
+        res.status(500).json({ error: 'Erro ao listar serviço do cliente' });
+      }
+    }
+  };
+
+  public showCliente = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { cliente_id } = req.query;
+
+      const ServicoCliente = await this.servicoClienteUseCase.getByClienteId(Number(cliente_id));
+
+      res.status(200).json(ServicoCliente);
+    } catch (error: any) {
+      if (error instanceof ClienteNotFound) {
         res.status(404).json({ error: error.message });
       } else {
         console.log(error.message);
