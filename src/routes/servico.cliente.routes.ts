@@ -41,7 +41,7 @@ servicoClienteRouter.get(
 );
 
 servicoClienteRouter.get(
-  '/cliente', 
+  '/servico', 
   authMiddleware, 
   servicoClienteController.showCliente
 );
