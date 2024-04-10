@@ -10,7 +10,6 @@ export interface IServicoCliente {
   }
   
   export interface UpdateServicoClienteDTO {
-    id: number;
     cliente_id: number;
     servico_id: number;
   }

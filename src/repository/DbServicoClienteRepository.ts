@@ -60,7 +60,7 @@ export class DbServicoClienteRepository implements ServicoClienteRepository {
   }
 
   public async getByClienteId(cliente_id: number): Promise<IServicoCliente | null> {
-    return await prismaClient.servico_cliente.findFirst({
+    return await prismaClient.servico_cliente.findMany({
       select: {
         id: true,
         cliente_id: true,
