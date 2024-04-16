@@ -10,7 +10,7 @@ export interface ContratoRegraCobrancaRepository {
     horario: [],
     servico: [],
     tipo_atividade: [],
-    tipo_chamado: []    
+    tipo_chamado: []
   ): Promise<IContratoRegraCobranca | null>;
   
   getAll(contrato_id: number): Promise<IContratoRegraCobranca[] | null>;

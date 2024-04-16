@@ -16,13 +16,13 @@ export class TipoContratoUseCase {
     data: CreateTipoContratoDTO
   ): Promise<ITipoContrato | null> {
 
-    const existsTipoContratoByDescricao = await this.TipoContratoRepository.getByDescricao(
-      descricao
-    );
+    // const existsTipoContratoByDescricao = await this.TipoContratoRepository.getByDescricao(
+    //   descricao
+    // );
 
-    if (existsTipoContratoByDescricao) {
-      throw new TipoContratoAlreadyExists();
-    }
+    // if (existsTipoContratoByDescricao) {
+    //   throw new TipoContratoAlreadyExists();
+    // }
 
     const TipoContrato = await this.TipoContratoRepository.createTipoContrato({
       descricao: data.descricao,

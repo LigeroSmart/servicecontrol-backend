@@ -328,7 +328,7 @@ model regra_franquia {
   qtd_horas                     Int?
   valor_hora                    Decimal?                        @db.Decimal
   qtd_meses                     Int?
-  frnquia_fixa                  String?                         @db.VarChar(1)
+  franquia_fixa                  String?                         @db.VarChar(1)
   contrato                      contrato                        @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   regra_franquia_horario        regra_franquia_horario[]
   regra_franquia_servico        regra_franquia_servico[]
@@ -345,13 +345,11 @@ model regra_franquia_horario {
 }
 
 model regra_franquia_servico {
-  id                 Int             @default(autoincrement())
+  id                 Int             @id @default(autoincrement())
   servico_cliente_id Int
-  regra_franquia_id  Int?
+  regra_franquia_id  Int
   regra_franquia     regra_franquia? @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([id, servico_cliente_id])
 }
 
 model regra_franquia_tipo_atividade {
