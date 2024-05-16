@@ -18,6 +18,7 @@ import { tipoContratoRouter } from './routes/tipo.contrato.routes';
 import { contratoRouter } from './routes/contrato.routes';
 import { contratoRegraCobrancaRouter } from './routes/contrato.regra.cobranca.routes';
 import { contratoRegraFranquiaRouter } from './routes/contrato.regra.franquia.routes';
+import { contratoRegraSlaRouter } from './routes/contrato.regra.sla.routes';
 
 const router = Router();
 
@@ -40,5 +41,6 @@ router.use('/api/v1/tipo-contrato', tipoContratoRouter);
 router.use('/api/v1/contrato', contratoRouter);
 router.use('/api/v1/contrato-regra-cobranca', contratoRegraCobrancaRouter);
 router.use('/api/v1/contrato-regra-franquia', contratoRegraFranquiaRouter);
+router.use('/api/v1/contrato-regra-sla', contratoRegraSlaRouter);
 
 export default router;
