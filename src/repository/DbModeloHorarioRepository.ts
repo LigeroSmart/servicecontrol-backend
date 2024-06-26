@@ -10,7 +10,10 @@ export class DbModeloHorarioRepository implements ModeloHorarioRepository {
       data: data,
       select: {
         id: true,
-        descricao: true,
+        tipo_horario_id: true,
+        descricao: true,        
+        inicio: true,
+        termino: true,
         situacao: true
       },
     });
@@ -22,7 +25,10 @@ export class DbModeloHorarioRepository implements ModeloHorarioRepository {
     return await prismaClient.modelo_horario.findMany({
       select: {
         id: true,
-        descricao: true,
+        tipo_horario_id: true,
+        descricao: true,        
+        inicio: true,
+        termino: true,
         situacao: true
       },
       orderBy: {
@@ -38,8 +44,16 @@ export class DbModeloHorarioRepository implements ModeloHorarioRepository {
       },
       select: {
         id: true,
-        descricao: true,
+        tipo_horario_id: true,
+        descricao: true,        
+        inicio: true,
+        termino: true,
         situacao: true,
+        tipo_horario: {
+          select: {
+            descricao: true
+          }
+        }
       },
     });
   }
@@ -66,7 +80,10 @@ export class DbModeloHorarioRepository implements ModeloHorarioRepository {
       data: data,
       select: { 
         id: true,
-        descricao: true,
+        tipo_horario_id: true,
+        descricao: true,        
+        inicio: true,
+        termino: true,
         situacao: true
       }
     });

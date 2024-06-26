@@ -26,6 +26,9 @@ export class ModeloHorarioUseCase {
 
     const ModeloHorario = await this.ModeloHorarioRepository.createModeloHorario({
       descricao: data.descricao,
+      tipo_horario_id: data.tipo_horario_id,
+      inicio: data.inicio,
+      termino: data.termino,
       situacao: data.situacao
     });
 
@@ -72,8 +75,17 @@ export class ModeloHorarioUseCase {
       throw new ModeloHorarioNotFound();
     }
 
+    let sInicio = ('1970-01-01T' + data.inicio);
+    let sTermino = ('1970-01-01T' + data.termino);
+
+    const _inicio = new Date(sInicio);
+    const _termino = new Date(sTermino);
+
     const ModeloHorario = await this.ModeloHorarioRepository.update(id, {
       descricao: data.descricao,
+      tipo_horario_id: data.tipo_horario_id,
+      inicio: _inicio,
+      termino: _termino,
       situacao: data.situacao,
     });
 

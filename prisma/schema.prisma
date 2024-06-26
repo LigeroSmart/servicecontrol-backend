@@ -131,8 +131,12 @@ model modelo_contrato {
 
 model modelo_horario {
   id                            Int                             @id @default(autoincrement())
+  tipo_horario_id               Int
+  inicio                        DateTime?      @db.Time(6)
+  termino                       DateTime?      @db.Time(6)
   descricao                     String?                         @db.VarChar(60)
-  situacao                      String?                         @db.VarChar(1)
+  situacao                      String?                         @db.VarChar(1)  
+  tipo_horario                  tipo_horario                   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   modelo_regra_franquia_horario modelo_regra_franquia_horario[]
   regra_franquia_horario        regra_franquia_horario[]
   cliente                       cliente[]
@@ -458,6 +462,7 @@ model tipo_horario {
   situacao                      String                          @db.VarChar(1)
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
   regra_cobranca_horario        regra_cobranca_horario[]
+  modelo_horario                modelo_horario[]
 }
 
 model usuario {

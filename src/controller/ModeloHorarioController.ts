@@ -54,10 +54,13 @@ export class ModeloHorarioController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { descricao, situacao } = req.body;
+      const { descricao, tipo_horario_id, inicio, termino, situacao } = req.body;
 
       const ModeloHorario = await this.ModeloHorarioUseCase.createModeloHorario(descricao, {
         descricao,
+        tipo_horario_id,
+        inicio,
+        termino,
         situacao,
       });
 
@@ -76,10 +79,13 @@ export class ModeloHorarioController {
     try {
       const { id } = req.params;
 
-      const { descricao, situacao } = req.body;
+      const { descricao, tipo_horario_id, inicio, termino, situacao } = req.body;
 
       const ModeloHorario = await this.ModeloHorarioUseCase.update(Number(id), {
         descricao,
+        tipo_horario_id,
+        inicio,
+        termino,
         situacao,
       });
 
