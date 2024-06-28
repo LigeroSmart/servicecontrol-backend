@@ -420,8 +420,8 @@ model servico_cliente {
 
 model sla {
   id                   Int                    @id @default(autoincrement())
-  descricao            String?                @db.VarChar(60)
-  situacao             String?                @db.VarChar(1)
+  descricao            String                 @db.VarChar(60)
+  situacao             String                 @db.VarChar(1)
   modelo_regra_sla_sla modelo_regra_sla_sla[]
   regra_sla_sla        regra_sla_sla[]
 }

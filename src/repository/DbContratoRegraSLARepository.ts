@@ -60,7 +60,7 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
       // #region CRUD SLA
       for (let i = 0; i < sla.length; i++) {
         let slaItem : any = sla[i];
-   
+ 
         await trx2.regra_sla_sla.create({
           data: {
             contrato_id : _id,
