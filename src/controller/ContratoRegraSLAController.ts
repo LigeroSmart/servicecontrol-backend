@@ -21,10 +21,12 @@ export class ContratoRegraSlaController {
       const contratoRegraSla = await this.contratoRegraSlaUseCase.getAll(Number(contrato_id));
      
       if (contratoRegraSla[0].nome_contato == null && contratoRegraSla[0].descricao_sla == null && contratoRegraSla[0].descricao_servico == null) {
-        throw new ContratoRegraSlaNotFound();
+        //throw new ContratoRegraSlaNotFound();
+        res.status(200).json('[]');  
       } else {
         res.status(200).json(contratoRegraSla);  
       }     
+      
 
     } catch (error: any) {
       if (error instanceof ContratoRegraSlaNotFound) {

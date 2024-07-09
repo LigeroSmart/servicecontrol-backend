@@ -112,9 +112,9 @@ export class ContratoRegraFranquiaUseCase {
   public async getAll(contrato_id: number): Promise<IContratoRegraFranquia[] | null> {
     const contratoRegraFranquia = await this.contratoRegraFranquiaRepository.getAll(contrato_id);
 
-    if (!contratoRegraFranquia || contratoRegraFranquia.length === 0) {
-      throw new ContratoRegraFranquiaNotFound();
-    }
+    // if (!contratoRegraFranquia || contratoRegraFranquia.length === 0) {
+    //   throw new ContratoRegraFranquiaNotFound();
+    // }
 
     return contratoRegraFranquia;
   }
