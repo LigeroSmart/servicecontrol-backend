@@ -45,7 +45,7 @@ export class DbSlaRepository implements SlaRepository {
   }
 
   public async getByDescricao(descricao: string): Promise<ISla | null> {
-    return await prismaClient.sla.findUnique({
+    return await prismaClient.sla.findFirst({
       where: {
         descricao,
       },

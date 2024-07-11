@@ -84,22 +84,26 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
   public async getAll(contrato_id: number): Promise<IContratoRegraSla[] | null> {
     /** CÓDIGO ORIGINAL */
     //return await prismaClient.$queryRaw`select p.id, P.descricao, p.situacao, m.descricao menu, m.rota, m.ordem, m.grupo_id, m.id menu_id from perfil p left outer join perfil_menu pm on p.id = pm.perfil_id left outer join menu m on pm.menu_id = m.id where p.id = ${id} order by m.ordem`;
-    return await prismaClient.$queryRaw`select contrato.id as contrato_id, (select string_agg(contato.nome, ', ') from regra_sla_contato c left outer join contato on c.contato_id = contato.id where c.contrato_id = contrato.id) as  nome_contato, (select string_agg(servico.descricao, ', ') from regra_sla_servico serv left outer join servico_cliente on servico_cliente.id = serv.servico_cliente_id left outer join servico on servico.id = serv.id where serv.contrato_id = contrato.id) as descricao_sla, (select string_agg(sla.descricao, ', ') from regra_sla_sla s left outer join sla ON s.sla_id = sla.id where s.contrato_id = contrato.id) as descricao_servico from contrato where contrato.id = ${contrato_id}`;
+    return await prismaClient.$queryRaw`select contrato.id as contrato_id, (select string_agg(contato.nome, ', ') from regra_sla_contato c left outer join contato on c.contato_id = contato.id where c.contrato_id = contrato.id) as  nome_contato, (select string_agg(servico.descricao, ', ') from regra_sla_servico serv left outer join servico_cliente on servico_cliente.id = serv.servico_cliente_id left outer join servico on servico.id = servico_cliente.servico_id where serv.contrato_id = contrato.id) as descricao_servico, (select string_agg(sla.descricao, ', ') from regra_sla_sla s left outer join sla ON s.sla_id = sla.id where s.contrato_id = contrato.id) as descricao_sla from contrato where contrato.id = ${contrato_id}`;
 
     // return await prismaClient.$queryRaw`select contrato.id as contrato_id, ` +
+
     //  `(select string_agg(contato.nome, ', ') ` +
     //  `from regra_sla_contato c ` +
     //  `left outer join contato on c.contato_id = contato.id ` +
     //  `where c.contrato_id = contrato.id) as  nome_contato, ` +
+
     //  `(select string_agg(servico.descricao, ', ') ` +
     //  `from regra_sla_servico serv ` +
     //  `left outer join servico_cliente on servico_cliente.id = serv.servico_cliente_id `+
-    //  `left outer join servico on servico.id = serv.id ` +
-    //  `where serv.contrato_id = contrato.id) as descricao_sla, ` +
+    //  `left outer join servico on servico.id = servico_cliente.servico_id ` +
+    //  `where serv.contrato_id = contrato.id) as descricao_servico, ` +
+
     //  `(select string_agg(sla.descricao, ', ') ` +
     //  `from regra_sla_sla s ` + 
     //  `left outer join sla ON s.sla_id = sla.id ` +
-    //  `where s.contrato_id = contrato.id) as descricao_servico ` +
+    //  `where s.contrato_id = contrato.id) as descricao_sla ` +
+
     //  `from contrato where contrato.id = ${contrato_id} `;    
 
 
@@ -227,6 +231,8 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
       for (let i=0; i < servico.length; i++) {
         let servicoItem : any = servico[i];
 
+        console.log('servicoItem', servicoItem);
+
         if (servicoItem.deleted) {
           await trx2.regra_sla_servico.delete({
             where: { 
@@ -319,6 +325,7 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
 
   public async delete(contrato_id: number): Promise<IContratoRegraSla | null> {
     let retorno : any;
+    console.log('contrato_id=',contrato_id); 
     await prismaClient.$transaction(async (trx2) => {
       await trx2.regra_sla_contato.deleteMany({
         where: { 

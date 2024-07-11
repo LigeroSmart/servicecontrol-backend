@@ -8,24 +8,24 @@ datasource db {
 }
 
 model centro_custo {
-  id                Int           @id @default(autoincrement())
-  descricao         String        @db.VarChar(20) @unique(map: "centro_custo_descricao_uk")
-  situacao          String        @db.VarChar(1)
-  contrato          contrato[]
-  modelo_contrato   modelo_contrato[]
+  id              Int               @id @default(autoincrement())
+  descricao       String            @unique(map: "centro_custo_descricao_uk") @db.VarChar(20)
+  situacao        String            @db.VarChar(1)
+  contrato        contrato[]
+  modelo_contrato modelo_contrato[]
 }
 
 model tipo_contato {
-  id                Int           @id @default(autoincrement())
-  descricao         String        @db.VarChar(20) @unique(map: "tipo_contato_descricao_uk")
-  situacao          String        @db.VarChar(1)
+  id        Int    @id @default(autoincrement())
+  descricao String @unique(map: "tipo_contato_descricao_uk") @db.VarChar(20)
+  situacao  String @db.VarChar(1)
 }
 
 model atividade {
   id                Int            @id @default(autoincrement())
   usuario_id        Int
   tipo_atividade_id Int
-  ticket            String         @db.VarChar(20) @unique(map: "atividade_ticket_uk")
+  ticket            String         @unique(map: "atividade_ticket_uk") @db.VarChar(20)
   codigo            String?        @db.VarChar(20)
   tipo_atividadeid  Int?
   data_inicio       DateTime?      @db.Date
@@ -40,7 +40,6 @@ model atividade {
 
 model cliente {
   id                Int               @id @default(autoincrement())
-  modelo_horario_id Int
   codigo            Int               @unique(map: "cliente_codigo_uk")
   cnpj              String?           @db.VarChar(20)
   ie                String?           @db.VarChar(20)
@@ -55,6 +54,7 @@ model cliente {
   site              String?           @db.VarChar(200)
   observacao        String?           @db.VarChar(2000)
   situacao          String?           @db.VarChar(1)
+  modelo_horario_id Int
   modelo_horario    modelo_horario    @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   contato           contato[]
   contrato          contrato[]
@@ -77,34 +77,34 @@ model contato {
 }
 
 model contrato {
-  id                     Int                      @id @default(autoincrement())
-  cliente_id             Int
-  tipo_contrato_id       Int?
-  centro_custo_id        Int?
-  numero                 String?                  @db.VarChar(20) @unique(map: "contrato_numero_uk")
-  descricao              String?                  @db.VarChar(2000)
-  inicio_vigencia        DateTime?                @db.Date
-  termino_vigencia       DateTime?                @db.Date
-  termino_contrato       DateTime?                @db.Date
-  valor_mensal           Decimal?                 @db.Decimal
-  situacao               String?                  @db.VarChar(1)
-  cliente                cliente                  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_contrato          tipo_contrato?           @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  centro_custo           centro_custo?            @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  regra_cobranca         regra_cobranca[]
-  regra_franquia         regra_franquia[]
-  regra_sla_contato      regra_sla_contato[]
-  regra_sla_servico      regra_sla_servico[]
-  regra_sla_sla          regra_sla_sla[]
+  id                Int                 @id @default(autoincrement())
+  cliente_id        Int
+  tipo_contrato_id  Int?
+  centro_custo_id   Int?
+  numero            String?             @unique(map: "contrato_numero_uk") @db.VarChar(20)
+  descricao         String?             @db.VarChar(2000)
+  inicio_vigencia   DateTime?           @db.Date
+  termino_vigencia  DateTime?           @db.Date
+  termino_contrato  DateTime?           @db.Date
+  valor_mensal      Decimal?            @db.Decimal
+  situacao          String?             @db.VarChar(1)
+  centro_custo      centro_custo?       @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cliente           cliente             @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_contrato     tipo_contrato?      @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_cobranca    regra_cobranca[]
+  regra_franquia    regra_franquia[]
+  regra_sla_contato regra_sla_contato[]
+  regra_sla_servico regra_sla_servico[]
+  regra_sla_sla     regra_sla_sla[]
 }
 
 model menu {
   id          Int           @id
-  ordem       Int?
   descricao   String?       @db.VarChar(40)
   rota        String?       @db.VarChar(100)
   ativo       String?       @db.VarChar(1)
   grupo_id    Int?
+  ordem       Int?
   menu        menu?         @relation("menuTomenu", fields: [grupo_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_menu")
   other_menu  menu[]        @relation("menuTomenu")
   perfil_menu perfil_menu[]
@@ -118,9 +118,9 @@ model modelo_contrato {
   descricao                     String?                         @db.VarChar(2000)
   valor_mensal                  Decimal?                        @db.Decimal
   situacao                      String?                         @db.VarChar(1)
+  centro_custo                  centro_custo?                   @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cliente                       cliente                         @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipo_contrato                 tipo_contrato?                  @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  centro_custo                  centro_custo?                   @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   modelo_regra_cobranca         modelo_regra_cobranca[]
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
   modelo_regra_franquia         modelo_regra_franquia[]
@@ -131,15 +131,15 @@ model modelo_contrato {
 
 model modelo_horario {
   id                            Int                             @id @default(autoincrement())
-  tipo_horario_id               Int
-  inicio                        DateTime?      @db.Time(6)
-  termino                       DateTime?      @db.Time(6)
   descricao                     String?                         @db.VarChar(60)
-  situacao                      String?                         @db.VarChar(1)  
-  tipo_horario                  tipo_horario                   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  modelo_regra_franquia_horario modelo_regra_franquia_horario[]
-  regra_franquia_horario        regra_franquia_horario[]
+  situacao                      String?                         @db.VarChar(1)
+  inicio                        DateTime?                       @db.Time(6)
+  termino                       DateTime?                       @db.Time(6)
+  tipo_horario_id               Int
   cliente                       cliente[]
+  tipo_horario                  tipo_horario                    @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  modelo_regra_franquia_horario modelo_regra_franquia_horario[]
+  //regra_franquia_horario        regra_franquia_horario[]
 }
 
 model modelo_regra_cobranca {
@@ -287,18 +287,18 @@ model regra_cobranca {
   valor                         Decimal?                        @db.Decimal
   bloqueado                     String?                         @db.VarChar(1)
   contrato                      contrato?                       @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_cobranca_horario        regra_cobranca_horario[]
   regra_cobranca_servico        regra_cobranca_servico[]
   regra_cobranca_tipo_atividade regra_cobranca_tipo_atividade[]
   regra_cobranca_tipo_chamado   regra_cobranca_tipo_chamado[]
-  regra_cobranca_horario        regra_cobranca_horario[]
 }
 
 model regra_cobranca_horario {
-  id                  Int           @id @default(autoincrement())
-  regra_cobranca_id   Int?
-  tipo_horario_id     Int?
-  regra_cobranca      regra_cobranca?      @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_horario        tipo_horario? @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                Int             @id @default(autoincrement())
+  tipo_horario_id   Int?
+  regra_cobranca_id Int?
+  regra_cobranca    regra_cobranca? @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario      tipo_horario?   @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model regra_cobranca_servico {
@@ -323,7 +323,7 @@ model regra_cobranca_tipo_chamado {
   tipo_chamado_id   Int
   bloqueado         String?        @db.VarChar(1)
   regra_cobranca    regra_cobranca @relation(fields: [regra_cobranca_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_chamado      tipo_chamado?  @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_chamado      tipo_chamado   @relation(fields: [tipo_chamado_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model regra_franquia {
@@ -332,7 +332,7 @@ model regra_franquia {
   qtd_horas                     Int?
   valor_hora                    Decimal?                        @db.Decimal
   qtd_meses                     Int?
-  franquia_fixa                  String?                         @db.VarChar(1)
+  franquia_fixa                 String?                         @db.VarChar(1)
   contrato                      contrato                        @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   regra_franquia_horario        regra_franquia_horario[]
   regra_franquia_servico        regra_franquia_servico[]
@@ -341,18 +341,20 @@ model regra_franquia {
 }
 
 model regra_franquia_horario {
-  id                Int            @id @default(autoincrement())
+  id                Int             @id @default(autoincrement())
   regra_franquia_id Int
-  modelo_horario_id Int
-  modelo_horario    modelo_horario @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  regra_franquia    regra_franquia @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  //modelo_horario_id Int?
+  tipo_horario_id   Int
+  //modelo_horario    modelo_horario? @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_franquia    regra_franquia  @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_horario      tipo_horario    @relation(fields: [tipo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "regra_franquia_horario_tipo_horario_fkey")
 }
 
 model regra_franquia_servico {
   id                 Int             @id @default(autoincrement())
   servico_cliente_id Int
   regra_franquia_id  Int
-  regra_franquia     regra_franquia? @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_franquia     regra_franquia  @relation(fields: [regra_franquia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   servico_cliente    servico_cliente @relation(fields: [servico_cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -399,15 +401,15 @@ model regra_sla_sla {
 
 model servico {
   id              Int               @id @default(autoincrement())
-  descricao       String?           @db.VarChar(60) @unique(map: "servico_descricao_uk")
+  descricao       String?           @unique(map: "servico_descricao_uk") @db.VarChar(60)
   situacao        String?           @db.VarChar(1)
   servico_cliente servico_cliente[]
 }
 
 model servico_cliente {
   id                            Int                             @id @default(autoincrement())
-  cliente_id                    Int?                            
-  servico_id                    Int?                            
+  cliente_id                    Int?
+  servico_id                    Int?
   modelo_regra_cobranca_servico modelo_regra_cobranca_servico[]
   modelo_regra_franquia_servico modelo_regra_franquia_servico[]
   modelo_regra_sla_servico      modelo_regra_sla_servico[]
@@ -420,7 +422,7 @@ model servico_cliente {
 
 model sla {
   id                   Int                    @id @default(autoincrement())
-  descricao            String                 @db.VarChar(60)
+  descricao            String                 @db.VarChar(60)                 
   situacao             String                 @db.VarChar(1)
   modelo_regra_sla_sla modelo_regra_sla_sla[]
   regra_sla_sla        regra_sla_sla[]
@@ -460,9 +462,10 @@ model tipo_horario {
   id                            Int                             @id @default(autoincrement())
   descricao                     String                          @unique(map: "uk_tipo_horario_descricao") @db.VarChar(20)
   situacao                      String                          @db.VarChar(1)
+  modelo_horario                modelo_horario[]
   modelo_regra_cobranca_horario modelo_regra_cobranca_horario[]
   regra_cobranca_horario        regra_cobranca_horario[]
-  modelo_horario                modelo_horario[]
+  regra_franquia_horario        regra_franquia_horario[]
 }
 
 model usuario {

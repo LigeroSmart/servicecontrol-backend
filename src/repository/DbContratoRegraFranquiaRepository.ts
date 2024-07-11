@@ -37,15 +37,17 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
       for (let i=0; i < horario.length; i++) {
         let horarioItem : any = horario[i];
 
+        console.log('horarioItem', horarioItem);
+
         await trx2.regra_franquia_horario.create({
           data: {
             regra_franquia_id : _id,
-            modelo_horario_id : horarioItem.modelo_horario_id,
+            tipo_horario_id: horarioItem.tipo_horario_id
           },
           select: {
             id: true,
             regra_franquia_id: true,
-            modelo_horario_id: true
+            tipo_horario_id: true
           },
         });
       };
@@ -141,13 +143,13 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
         regra_franquia_horario: {
           select:{
             id: true,
-            regra_franquia_id: true,
-            modelo_horario_id: true,
-            modelo_horario: {
+            regra_franquia_id: true, 
+            tipo_horario_id: true,   
+            tipo_horario: {
               select: {
                 descricao: true
               }
-            }
+            }            
           }
         },
         regra_franquia_servico: {

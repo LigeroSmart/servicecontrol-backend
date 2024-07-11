@@ -7,13 +7,26 @@ export const createModeloHorarioValidator = [
     .isString()
     .isLength({ min: 1 })
     .withMessage('Descrição é obrigatória'),
+  body('tipo_horario_id')
+    .isInt( {min: 1})
+    .withMessage('Tipo de horário é obrigatória'),
+  body('situacao')
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage('Situação é obrigatória'),
+  body('situacao')
+    .isString()
+    .isIn(['A','I'])
+    .withMessage('Situação inválida'),
 ];
 
 export const updateModeloHorarioValidator = [
-  body('descricao')
-    .isString()
+  body('descricao')    
     .isLength({ min: 1 })
     .withMessage('Descrição é obrigatória'),
+  body('tipo_horario_id')
+    .isInt( {min: 1})
+    .withMessage('Tipo de horário é obrigatória'),
   body('situacao')
     .isString()
     .isLength({ min: 1 })
