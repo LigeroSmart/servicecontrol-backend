@@ -247,12 +247,12 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
               },
               data: {
                 regra_franquia_id : horarioItem.regra_franquia_id,
-                modelo_horario_id : horarioItem.modelo_horario_id,
+                tipo_horario_id : horarioItem.tipo_horario_id,
               },
               select: { 
                 id: true,
                 regra_franquia_id: true,
-                modelo_horario_id: true
+                tipo_horario_id: true
               }
             });            
           } 
@@ -260,12 +260,12 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
             await trx2.regra_franquia_horario.create({
               data: {
                 regra_franquia_id : horarioItem.regra_franquia_id,
-                modelo_horario_id : horarioItem.modelo_horario_id,
+                tipo_horario_id : horarioItem.modelo_horario_id,
               },
               select: {
                 id: true,
                 regra_franquia_id: true,
-                modelo_horario_id: true
+                tipo_horario_id: true
               },
             });
           }  

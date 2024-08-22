@@ -36,7 +36,7 @@ export class ContratoUseCase {
     const _dataInicioVigencia = new Date(sInicioVigencia);
     const _dataTerminoVigencia = new Date(sTerminoVigencia);
     const _dataTerminoContrato = new Date(sTerminoContrato);
-
+    
     const contrato = await this.ContratoRepository.createContrato({
       cliente_id: data.cliente_id,
       tipo_contrato_id: data.tipo_contrato_id,

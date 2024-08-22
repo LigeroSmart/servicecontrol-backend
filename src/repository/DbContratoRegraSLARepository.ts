@@ -277,6 +277,8 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
       for (let i = 0; i < sla.length; i++) {
         let slaItem : any = sla[i];
 
+        console.log('slaitem', slaItem);
+
         if (slaItem.deleted) {
           await trx2.regra_sla_sla.delete({
             where: { 
