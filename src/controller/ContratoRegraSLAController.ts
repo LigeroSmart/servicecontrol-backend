@@ -82,17 +82,17 @@ export class ContratoRegraSlaController {
       const { id } = req.params;
 
       const { contrato_id, 
-              regra_sla_contato,
-              regra_sla_servico,
-              regra_sla_sla
+              contato,
+              servico,
+              sla
       } = req.body;
 
       const ContratoRegraSla = await this.contratoRegraSlaUseCase.update(Number(id), {
         contrato_id,
       },
-      regra_sla_contato,
-      regra_sla_servico,
-      regra_sla_sla);
+      contato,
+      servico,
+      sla);
 
       res
         .status(200)

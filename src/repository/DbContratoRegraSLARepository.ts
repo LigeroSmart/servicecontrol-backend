@@ -186,7 +186,7 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
       // #region CRUD contato    
       for (let i=0; i<contato.length; i++) {
         let contatoItem : any = contato[i];
-
+        
         if (contatoItem.deleted) {
           await trx2.regra_sla_contato.delete({
             where: { 
@@ -195,6 +195,8 @@ export class DbContratoRegraSLARepository implements ContratoRegraSlaRepository 
           });
         } else {
           if (contatoItem.id > 0) {
+            console.log('update - contatoItem', contatoItem);
+            
             await trx2.regra_sla_contato.update({
               where: { 
                 id : contatoItem.id 
