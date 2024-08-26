@@ -10,6 +10,14 @@ export const createModeloHorarioValidator = [
   body('tipo_horario_id')
     .isInt( {min: 1})
     .withMessage('Tipo de horário é obrigatória'),
+  body('inicio')
+    .isString()
+    .isLength( {min: 5} )
+    .withMessage('Inicio é obrigatório'),    
+  body('termino')
+    .isString()
+    .isLength( {min: 5} )
+    .withMessage('Término é obrigatório'),        
   body('situacao')
     .isString()
     .isLength({ min: 1 })

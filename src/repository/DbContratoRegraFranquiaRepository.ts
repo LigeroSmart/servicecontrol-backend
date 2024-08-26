@@ -37,8 +37,6 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
       for (let i=0; i < horario.length; i++) {
         let horarioItem : any = horario[i];
 
-        console.log('horarioItem', horarioItem);
-
         await trx2.regra_franquia_horario.create({
           data: {
             regra_franquia_id : _id,
@@ -260,7 +258,7 @@ export class DbContratoRegraFranquiaRepository implements ContratoRegraFranquiaR
             await trx2.regra_franquia_horario.create({
               data: {
                 regra_franquia_id : horarioItem.regra_franquia_id,
-                tipo_horario_id : horarioItem.modelo_horario_id,
+                tipo_horario_id : horarioItem.tipo_horario_id,
               },
               select: {
                 id: true,
