@@ -3,6 +3,9 @@ import { body } from 'express-validator';
 import { validationResult } from 'express-validator/src/validation-result';
 
 export const createServicoValidator = [
+  body('servico_ligero_id')
+    .isInt( {min: 1})
+    .withMessage('Chave estrangeira do Ligeiro é obrigatória'),
   body('descricao')
     .isString()
     .isLength({ min: 1 })
@@ -17,6 +20,9 @@ export const createServicoValidator = [
 ];
 
 export const updateServicoValidator = [
+  body('servico_ligero_id')
+    .isInt( {min: 1})
+    .withMessage('Chave estrangeira do Ligeiro é obrigatória'),
   body('descricao')
     .isString()
     .isLength({ min: 1 })

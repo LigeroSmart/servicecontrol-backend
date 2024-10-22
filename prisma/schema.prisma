@@ -22,20 +22,21 @@ model tipo_contato {
 }
 
 model atividade {
-  id                Int            @id @default(autoincrement())
-  usuario_id        Int
-  tipo_atividade_id Int
-  ticket            String         @unique(map: "atividade_ticket_uk") @db.VarChar(20)
-  codigo            String?        @db.VarChar(20)
-  tipo_atividadeid  Int?
-  data_inicio       DateTime?      @db.Date
-  hora_inicio       DateTime?      @db.Time(6)
-  data_final        DateTime?      @db.Date
-  hora_final        DateTime?      @db.Time(6)
-  assunto           String?        @db.VarChar(100)
-  descricao         String?        @db.VarChar(1000)
-  tipo_atividade    tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuario           usuario        @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                  Int            @id @default(autoincrement())
+  usuario_id          Int
+  tipo_atividade_id   Int
+  ticket              String         @unique(map: "atividade_ticket_uk") @db.VarChar(20)
+  codigo              String?        @db.VarChar(20)
+  tipo_atividadeid    Int?
+  data_inicio         DateTime?      @db.Date
+  hora_inicio         DateTime?      @db.Time(6)
+  data_final          DateTime?      @db.Date
+  hora_final          DateTime?      @db.Time(6)
+  assunto             String?        @db.VarChar(100)
+  descricao           String?        @db.VarChar(1000)
+  atividade_ligero_id Int
+  tipo_atividade      tipo_atividade @relation(fields: [tipo_atividade_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario             usuario        @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model cliente {
@@ -55,6 +56,7 @@ model cliente {
   observacao        String?           @db.VarChar(2000)
   situacao          String?           @db.VarChar(1)
   modelo_horario_id Int
+  cliente_ligero_id Int
   modelo_horario    modelo_horario    @relation(fields: [modelo_horario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   contato           contato[]
   contrato          contrato[]
@@ -72,30 +74,32 @@ model contato {
   email                    String?                    @db.VarChar(100)
   situacao                 String                     @db.VarChar(1)
   cliente                  cliente                    @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  contato_ligero_id        Int
   modelo_regra_sla_contato modelo_regra_sla_contato[]
   regra_sla_contato        regra_sla_contato[]
 }
 
 model contrato {
-  id                Int                 @id @default(autoincrement())
-  cliente_id        Int
-  tipo_contrato_id  Int?
-  centro_custo_id   Int?
-  numero            String?             @unique(map: "contrato_numero_uk") @db.VarChar(20)
-  descricao         String?             @db.VarChar(2000)
-  inicio_vigencia   DateTime?           @db.Date
-  termino_vigencia  DateTime?           @db.Date
-  termino_contrato  DateTime?           @db.Date
-  valor_mensal      Decimal?            @db.Decimal
-  situacao          String?             @db.VarChar(1)
-  centro_custo      centro_custo?       @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  cliente           cliente             @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipo_contrato     tipo_contrato?      @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  regra_cobranca    regra_cobranca[]
-  regra_franquia    regra_franquia[]
-  regra_sla_contato regra_sla_contato[]
-  regra_sla_servico regra_sla_servico[]
-  regra_sla_sla     regra_sla_sla[]
+  id                    Int                 @id @default(autoincrement())
+  cliente_id            Int
+  tipo_contrato_id      Int?
+  centro_custo_id       Int?
+  numero                String?             @unique(map: "contrato_numero_uk") @db.VarChar(20)
+  descricao             String?             @db.VarChar(2000)
+  inicio_vigencia       DateTime?           @db.Date
+  termino_vigencia      DateTime?           @db.Date
+  termino_contrato      DateTime?           @db.Date
+  valor_mensal          Decimal?            @db.Decimal
+  situacao              String?             @db.VarChar(1)
+  contrato_ligero_id    Int
+  centro_custo          centro_custo?       @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cliente               cliente             @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_contrato         tipo_contrato?      @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  regra_cobranca        regra_cobranca[]
+  regra_franquia        regra_franquia[]
+  regra_sla_contato     regra_sla_contato[]
+  regra_sla_servico     regra_sla_servico[]
+  regra_sla_sla         regra_sla_sla[]
 }
 
 model menu {
@@ -400,10 +404,11 @@ model regra_sla_sla {
 }
 
 model servico {
-  id              Int               @id @default(autoincrement())
-  descricao       String?           @unique(map: "servico_descricao_uk") @db.VarChar(60)
-  situacao        String?           @db.VarChar(1)
-  servico_cliente servico_cliente[]
+  id                  Int               @id @default(autoincrement())
+  servico_ligero_id   Int
+  descricao           String?           @unique(map: "servico_descricao_uk") @db.VarChar(60)
+  situacao            String?           @db.VarChar(1)
+  servico_cliente     servico_cliente[]
 }
 
 model servico_cliente {

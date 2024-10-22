@@ -11,7 +11,8 @@ export class DbServicoRepository implements ServicoRepository {
       select: {
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        servico_ligero_id: true
       },
     });
 
@@ -23,7 +24,8 @@ export class DbServicoRepository implements ServicoRepository {
       select: {
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        servico_ligero_id: true
       },
       orderBy: {
         descricao: 'asc',
@@ -40,6 +42,7 @@ export class DbServicoRepository implements ServicoRepository {
         id: true,
         descricao: true,
         situacao: true,
+        servico_ligero_id: true
       },
     });
   }
@@ -67,7 +70,8 @@ export class DbServicoRepository implements ServicoRepository {
       select: { 
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        servico_ligero_id: true
       }
     });
 
