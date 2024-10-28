@@ -11,6 +11,7 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
+        contato_ligero_id: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -28,6 +29,7 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
+        contato_ligero_id: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -49,6 +51,7 @@ export class DbContatoRepository implements ContatoRepository {
       select: {
         id: true,
         cliente_id: true,
+        contato_ligero_id: true,
         nome: true,
         telefone: true,
         ramal: true,
@@ -85,6 +88,7 @@ export class DbContatoRepository implements ContatoRepository {
       select: { 
         id: true,
         cliente_id: true,
+        contato_ligero_id: true,
         nome: true,
         telefone: true,
         ramal: true,

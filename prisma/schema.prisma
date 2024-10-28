@@ -91,7 +91,6 @@ model contrato {
   termino_contrato      DateTime?           @db.Date
   valor_mensal          Decimal?            @db.Decimal
   situacao              String?             @db.VarChar(1)
-  contrato_ligero_id    Int
   centro_custo          centro_custo?       @relation(fields: [centro_custo_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cliente               cliente             @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipo_contrato         tipo_contrato?      @relation(fields: [tipo_contrato_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

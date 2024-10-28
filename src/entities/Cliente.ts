@@ -1,6 +1,7 @@
 export class Cliente {
     id: number;
     modelo_horario_id: number;
+    cliente_ligero_id: number;
     codigo: number;
     cnpj: string;
     ie: string;
@@ -19,6 +20,7 @@ export class Cliente {
     constructor(
       id: number,
       modelo_horario_id: number,
+      cliente_ligero_id: number,
       codigo: number,
       cnpj: string,
       ie: string,
@@ -36,6 +38,7 @@ export class Cliente {
     ) {
       this.id = id;
       this.modelo_horario_id = modelo_horario_id;
+      this.cliente_ligero_id = cliente_ligero_id;
       this.codigo = codigo;
       this.cnpj = cnpj;
       this.ie = ie;

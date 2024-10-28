@@ -1,6 +1,7 @@
 export interface ICliente {
     id?: number;
     modelo_horario_id: number;
+    cliente_ligero_id: number;
     codigo: number;
     cnpj: string;
     ie: string;
@@ -19,6 +20,7 @@ export interface ICliente {
   
   export interface CreateClienteDTO {
     modelo_horario_id: number;
+    cliente_ligero_id: number;
     codigo: number;
     cnpj: string;
     ie: string;
@@ -37,6 +39,7 @@ export interface ICliente {
   
   export interface UpdateClienteDTO {
     modelo_horario_id: number;
+    cliente_ligero_id: number;
     codigo: number;
     cnpj: string;
     ie: string;

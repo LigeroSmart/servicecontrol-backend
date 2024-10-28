@@ -1,6 +1,7 @@
 export interface IContato {
     id?: number;
     cliente_id: number;
+    contato_ligero_id: number;
     nome: string;
     telefone: string;
     ramal: string;
@@ -11,6 +12,7 @@ export interface IContato {
   
   export interface CreateContatoDTO {
     cliente_id: number;
+    contato_ligero_id: number;
     nome: string;
     telefone: string;
     ramal: string;
@@ -21,6 +23,7 @@ export interface IContato {
   
   export interface UpdateContatoDTO {
     cliente_id: number;
+    contato_ligero_id: number;
     nome: string;
     telefone: string;
     ramal: string;

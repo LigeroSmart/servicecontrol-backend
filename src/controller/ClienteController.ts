@@ -63,6 +63,8 @@ export class ClienteController {
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
       const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao } = req.body;
+
+      const cliente_ligero_id = 1;
       
       const modeloHorario = await this.ModeloHorarioUseCase.getById(Number(modelo_horario_id));
 
@@ -86,6 +88,7 @@ export class ClienteController {
         site,
         observacao,
         situacao,
+        cliente_ligero_id,
       });
 
       res.status(201).json({ Cliente, message: 'Cliente criado com sucesso.' });
@@ -109,6 +112,8 @@ export class ClienteController {
 
       const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao } = req.body;
 
+      const cliente_ligero_id = 1;
+
       const modeloHorario = await this.ModeloHorarioUseCase.getById(Number(modelo_horario_id));
 
       if ( (modeloHorario) && (modeloHorario.situacao == 'I')) {
@@ -131,6 +136,7 @@ export class ClienteController {
         site,
         observacao,
         situacao,
+        cliente_ligero_id,
       });
 
       res

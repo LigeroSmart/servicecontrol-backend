@@ -24,6 +24,8 @@ export class ServicoUseCase {
       throw new ServicoAlreadyExists();
     }
 
+    console.log( data );
+    
     const servico = await this.ServicoRepository.createServico({
       descricao: data.descricao,
       situacao: data.situacao,

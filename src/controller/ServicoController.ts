@@ -44,7 +44,10 @@ export class ServicoController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { descricao, situacao, servico_ligero_id } = req.body;
+      //const { descricao, situacao, servico_ligero_id } = req.body;
+      const { descricao, situacao} = req.body;
+
+      const servico_ligero_id  = 1;
 
       const servico = await this.servicoUseCase.createServico(descricao, {
         descricao,
@@ -67,7 +70,10 @@ export class ServicoController {
     try {
       const { id } = req.params;
 
-      const { descricao, situacao, servico_ligero_id } = req.body;
+      //const { descricao, situacao, servico_ligero_id } = req.body;
+      const { descricao, situacao} = req.body;
+
+      const servico_ligero_id  = 1;
 
       const servico = await this.servicoUseCase.update(Number(id), {
         descricao,

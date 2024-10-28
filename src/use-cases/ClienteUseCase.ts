@@ -31,6 +31,7 @@ export class ClienteUseCase {
 
     const Cliente = await this.ClienteRepository.createCliente({
       modelo_horario_id: data.modelo_horario_id,
+      cliente_ligero_id: data.cliente_ligero_id,
       codigo: data.codigo,
       cnpj: data.cnpj,
       ie: data.ie,
@@ -93,6 +94,7 @@ export class ClienteUseCase {
 
     const Cliente = await this.ClienteRepository.update(id, {
         modelo_horario_id: data.modelo_horario_id,
+        cliente_ligero_id: data.cliente_ligero_id,
         codigo: data.codigo,
         cnpj: data.cnpj,
         ie: data.ie,

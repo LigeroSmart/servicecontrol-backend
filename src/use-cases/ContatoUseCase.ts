@@ -30,6 +30,7 @@ export class ContatoUseCase {
 
     const contato = await this.ContatoRepository.createContato({
       cliente_id: data.cliente_id,
+      contato_ligero_id: data.contato_ligero_id,
       nome: data.nome,
       telefone: data.telefone,
       ramal: data.ramal,
@@ -70,6 +71,7 @@ export class ContatoUseCase {
 
     const contato = await this.ContatoRepository.update(id, {
         cliente_id: data.cliente_id,
+        contato_ligero_id: data.contato_ligero_id,
         nome: data.nome,
         telefone: data.telefone,
         ramal: data.ramal,

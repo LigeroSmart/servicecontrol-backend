@@ -36,7 +36,17 @@ export class DbServicoClienteRepository implements ServicoClienteRepository {
       select: {
         id: true,
         servico_id: true,
-        cliente_id: true
+        cliente_id: true,
+        cliente: {
+          select: {
+            nome_fantasia: true
+          }
+        },
+        servico: {
+          select: {
+            descricao: true
+          }
+        }
       },
     });
   }

@@ -11,6 +11,7 @@ export class DbClienteRepository implements ClienteRepository {
       select: {
         id: true,
         modelo_horario_id: true,
+        cliente_ligero_id: true,
         codigo: true,
         cnpj: true,
         ie: true,
@@ -36,6 +37,7 @@ export class DbClienteRepository implements ClienteRepository {
       select: {
         id: true,
         modelo_horario_id: true,
+        cliente_ligero_id: true,
         codigo: true,
         cnpj: true,
         ie: true,
@@ -65,6 +67,7 @@ export class DbClienteRepository implements ClienteRepository {
       select: {
         id: true,
         modelo_horario_id: true,
+        cliente_ligero_id: true,
         codigo: true,
         cnpj: true,
         ie: true,
@@ -99,6 +102,7 @@ export class DbClienteRepository implements ClienteRepository {
       select: {
         id: true,
         modelo_horario_id: true,
+        cliente_ligero_id: true,
         codigo: true,
         cnpj: true,
         ie: true,
@@ -124,6 +128,7 @@ export class DbClienteRepository implements ClienteRepository {
       select: { 
         id: true,
         modelo_horario_id: true,
+        cliente_ligero_id: true,
         codigo: true,
         cnpj: true,
         ie: true,

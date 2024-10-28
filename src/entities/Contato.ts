@@ -1,6 +1,7 @@
 export class Contato {
     id: number;
     cliente_id: number;
+    contato_ligero_id: number;
     nome: string;
     telefone: string;
     ramal: string;
@@ -11,6 +12,7 @@ export class Contato {
     constructor(
         id: number,
         cliente_id: number,
+        contato_ligero_id: number,
         nome: string,
         telefone: string,
         ramal: string,
@@ -20,6 +22,7 @@ export class Contato {
     ) {
       this.id = id;
       this.cliente_id = cliente_id;
+      this.contato_ligero_id = contato_ligero_id;
       this.nome = nome;
       this.telefone = telefone;
       this.ramal = ramal;
