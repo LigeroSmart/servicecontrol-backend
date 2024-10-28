@@ -11,7 +11,8 @@ export class DbSlaRepository implements SlaRepository {
       select: {
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        sla_ligero_id: true
       },
     });
 
@@ -23,7 +24,8 @@ export class DbSlaRepository implements SlaRepository {
       select: {
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        sla_ligero_id: true
       },
       orderBy: {
         descricao: 'asc',
@@ -40,6 +42,7 @@ export class DbSlaRepository implements SlaRepository {
         id: true,
         descricao: true,
         situacao: true,
+        sla_ligero_id: true
       },
     });
   }
@@ -59,7 +62,8 @@ export class DbSlaRepository implements SlaRepository {
       select: { 
         id: true,
         descricao: true,
-        situacao: true
+        situacao: true,
+        sla_ligero_id: true
       }
     });
 

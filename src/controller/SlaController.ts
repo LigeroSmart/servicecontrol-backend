@@ -44,11 +44,12 @@ export class SlaController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { descricao, situacao } = req.body;
+      const { descricao, situacao, sla_ligero_id } = req.body;
 
       const Sla = await this.SlaUseCase.createSla(descricao, {
         descricao,
         situacao,
+        sla_ligero_id,
       });
 
       res.status(201).json({ Sla, message: 'SLA criado com sucesso.' });
@@ -66,11 +67,12 @@ export class SlaController {
     try {
       const { id } = req.params;
 
-      const { descricao, situacao } = req.body;
+      const { descricao, situacao, sla_ligero_id } = req.body;
 
       const Sla = await this.SlaUseCase.update(Number(id), {
         descricao,
         situacao,
+        sla_ligero_id,
       });
 
       res

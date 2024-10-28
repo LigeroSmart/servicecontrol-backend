@@ -62,10 +62,8 @@ export class ClienteController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao } = req.body;
-
-      const cliente_ligero_id = 1;
-      
+      const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao, cliente_ligero_id } = req.body;
+    
       const modeloHorario = await this.ModeloHorarioUseCase.getById(Number(modelo_horario_id));
 
       if ( (modeloHorario) && (modeloHorario.situacao == 'I')) {
@@ -110,9 +108,7 @@ export class ClienteController {
     try {
       const { id } = req.params;
 
-      const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao } = req.body;
-
-      const cliente_ligero_id = 1;
+      const { modelo_horario_id, codigo, cnpj, ie, abreviacao, nome_fantasia, razao_social, cep, endereco, bairro, cidade, uf, site, observacao, situacao, cliente_ligero_id } = req.body;
 
       const modeloHorario = await this.ModeloHorarioUseCase.getById(Number(modelo_horario_id));
 

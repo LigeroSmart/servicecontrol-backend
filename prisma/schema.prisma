@@ -428,6 +428,7 @@ model sla {
   id                   Int                    @id @default(autoincrement())
   descricao            String                 @db.VarChar(60)                 
   situacao             String                 @db.VarChar(1)
+  sla_ligero_id        Int?
   modelo_regra_sla_sla modelo_regra_sla_sla[]
   regra_sla_sla        regra_sla_sla[]
 }

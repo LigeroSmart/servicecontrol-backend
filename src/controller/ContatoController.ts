@@ -53,9 +53,7 @@ export class ContatoController {
 
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { cliente_id, nome, telefone, ramal, celular, email, situacao } = req.body;
-
-      const contato_ligero_id = 1;
+      const { cliente_id, nome, telefone, ramal, celular, email, situacao, contato_ligero_id } = req.body;
       
       const cliente = await this.clienteUseCase.getById(Number(cliente_id));
 
@@ -93,9 +91,7 @@ export class ContatoController {
     try {
       const { id } = req.params;
 
-      const { cliente_id, nome, telefone, ramal, celular, email, situacao } = req.body;
-
-      const contato_ligero_id = 1;
+      const { cliente_id, nome, telefone, ramal, celular, email, situacao, contato_ligero_id } = req.body;
 
       const cliente = await this.clienteUseCase.getById(Number(cliente_id));
 

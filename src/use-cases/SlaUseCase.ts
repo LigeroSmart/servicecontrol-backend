@@ -26,7 +26,8 @@ export class SlaUseCase {
 
     const Sla = await this.SlaRepository.createSla({
       descricao: data.descricao,
-      situacao: data.situacao
+      situacao: data.situacao,
+      sla_ligero_id: data.sla_ligero_id
     });
 
     return Sla;
@@ -65,6 +66,7 @@ export class SlaUseCase {
     const Sla = await this.SlaRepository.update(id, {
       descricao: data.descricao,
       situacao: data.situacao,
+      sla_ligero_id: data.sla_ligero_id
     });
 
     return Sla;
