@@ -96,6 +96,33 @@ export class DbServicoClienteRepository implements ServicoClienteRepository {
     });
   }
 
+  public async getByServicoId(servico_id: number): Promise<IServicoCliente | null> {
+    return await prismaClient.servico_cliente.findMany({
+      select: {
+        id: true,
+        cliente_id: true,
+        servico_id: true,
+        servico: {
+          select: {
+            id: true,
+            descricao: true,
+            situacao: true
+          },
+          where:{
+            situacao: {
+              equals:"A"
+            }
+          }
+        }
+      },
+      where: {
+        servico_id: {
+          equals: servico_id,
+        }
+      }
+    });
+  }  
+
   public async update(id: number, data: UpdateServicoClienteDTO): Promise<IServicoCliente | null> {
     return await prismaClient.servico_cliente.update({
       where: { id },

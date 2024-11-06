@@ -74,6 +74,24 @@ export class ServicoClienteController {
   };
 
 
+  public showServico = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params;
+
+      const ServicoCliente = await this.servicoClienteUseCase.getByServicoId(Number(id));
+
+      res.status(200).json(ServicoCliente);
+    } catch (error: any) {
+      if (error instanceof ClienteNotFound) {
+        res.status(404).json({ error: error.message });
+      } else {
+        console.log(error.message);
+        res.status(500).json({ error: 'Erro ao listar clientes do serviço' });
+      }
+    }
+  };  
+
+
   public insert = async (req: Request, res: Response): Promise<void> => {
     try {
       const { servico_id, cliente_id } = req.body;

@@ -47,6 +47,12 @@ servicoClienteRouter.get(
 );
 
 servicoClienteRouter.get(
+  '/servico/:id', 
+  authMiddleware, 
+  servicoClienteController.showServico
+);
+
+servicoClienteRouter.get(
   '/:id', 
   authMiddleware, 
   servicoClienteController.show
